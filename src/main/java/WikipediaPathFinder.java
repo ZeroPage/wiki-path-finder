@@ -1,3 +1,5 @@
+import wiki_api.WikipediaApi;
+
 public class WikipediaPathFinder implements PathFinder {
     private WikipediaLinkSource linkSource;
     private WikipediaBacklinkSource backlinkSource;
