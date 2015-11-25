@@ -1,3 +1,4 @@
+package path;
 
 public class RedirectableNode {
     public boolean redirecting;

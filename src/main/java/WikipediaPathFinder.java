@@ -1,3 +1,4 @@
+import path.RedirectablePath;
 import wiki_api.WikipediaApi;
 
 public class WikipediaPathFinder implements PathFinder {
