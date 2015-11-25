@@ -1,28 +1,23 @@
 package path;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ConcretePath implements Path{
-    Iterator<String> pathIterator;
-    int length;
+    private ArrayList<String> pathArray;
 
-    public ConcretePath(Iterator<String> pathIterator) {
-        this.pathIterator = pathIterator;
-        this.length = length();
+    public ConcretePath(ArrayList<String> pathArray) {
+        this.pathArray = pathArray;
     }
 
     @Override
     public Iterator<String> getPathIterator() {
-        return pathIterator;
+        return pathArray.iterator();
     }
 
     @Override
     public int length() {
-        length = 0;
-        while(pathIterator.hasNext()){
-            length++;
-            pathIterator.next();
-        }
-        return length;
+        return pathArray.size();
+
     }
 }
