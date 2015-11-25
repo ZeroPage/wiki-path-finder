@@ -1,3 +1,5 @@
+package path;
+
 import java.util.Iterator;
 
 public interface Path {
