@@ -28,33 +28,33 @@ public class Logger {
     }
 
     public void debug(String message) {
-        for(int i = 0 ; i < listeners.size(); i++) {
-           listeners.get(i).debug(message);
+        for (LogListener listener : listeners) {
+            listener.debug(message);
         }
 
     }
 
     public void info(String message) {
-        for(int i = 0 ; i < listeners.size(); i++) {
-            listeners.get(i).info(message);
+        for (LogListener listener : listeners) {
+            listener.info(message);
         }
     }
 
     public void warn(String message) {
-        for(int i = 0 ; i < listeners.size(); i++) {
-            listeners.get(i).warn(message);
+        for (LogListener listener : listeners) {
+            listener.warn(message);
         }
     }
 
     public void error(String message) {
-        for(int i = 0 ; i < listeners.size(); i++) {
-            listeners.get(i).error(message);
+        for (LogListener listener : listeners) {
+            listener.error(message);
         }
     }
 
     public void fatal(String message) {
-        for(int i = 0 ; i < listeners.size(); i++) {
-            listeners.get(i).fatal(message);
+        for (LogListener listener : listeners) {
+            listener.fatal(message);
         }
     }
 }
