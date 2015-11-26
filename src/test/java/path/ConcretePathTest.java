@@ -25,12 +25,20 @@ public class ConcretePathTest {
     @Test
     public void testGetPathIterator() {
         Iterator<String> iterator = concretePath.getPathIterator();
-        assertEquals(iterator.next(),"Apple");
+        assertEquals(iterator.next(), "Apple");
         assertEquals(iterator.next(),"Fruit tree");
     }
 
     @Test
     public void testLength() {
         assertEquals(concretePath.length(), 2);
+    }
+
+    @Test
+    public void testRemove() {
+        Iterator<String> iterator = concretePath.getPathIterator();
+        iterator.remove();
+        assertEquals(TEST_ARRAYLIST.size(), 2);
+        assertEquals(iterator.next(), "Apple");
     }
 }
