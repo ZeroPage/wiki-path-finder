@@ -16,7 +16,7 @@ public class SimplePathFinder implements PathFinder {
     }
 
     @Override
-    public Path getPath(String from, String to) {
+    public Path getPath(String from, String to) throws Exception {
         Map<String, String> parents = new HashMap<>();
         Queue<String> currentQueue = new LinkedList<>();
         Queue<String> nextQueue;
