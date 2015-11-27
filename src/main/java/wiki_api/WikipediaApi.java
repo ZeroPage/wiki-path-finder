@@ -7,13 +7,19 @@ import java.util.logging.Level;
 
 public class WikipediaApi {
     private Wiki wiki;
+    private boolean suppressRedirected;
 
     public WikipediaApi(Language language) {
+        this(language, false);
+    }
 
+    public WikipediaApi(Language language, boolean suppressRedirected) {
         String url = String.format("%s.wikipedia.org/w/api.php/", language.toString());
 
         wiki = new Wiki(url);
         wiki.setLogLevel(Level.OFF);
+
+        this.suppressRedirected = suppressRedirected;
     }
 
     public String[] getLinks(String title) throws IOException {
@@ -47,10 +53,12 @@ public class WikipediaApi {
             throw new NotNormalizedException();
         }
 
-        String redirected = resolve(title);
+        if (!suppressRedirected) {
+            String redirected = resolve(title);
 
-        if (redirected != null) {
-            throw new RedirectedException();
+            if (redirected != null) {
+                throw new RedirectedException();
+            }
         }
 
         if (!isExist(title)) {
