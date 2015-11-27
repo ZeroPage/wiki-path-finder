@@ -7,8 +7,12 @@ import java.util.*;
 public class SimplePathFinder implements PathFinder {
     private LinkSource source;
 
+    private Logger logger;
+
     public SimplePathFinder(@NotNull LinkSource source) {
         this.source = source;
+
+        logger = Logger.getInstance();
     }
 
     @Override
@@ -16,15 +20,18 @@ public class SimplePathFinder implements PathFinder {
         Map<String, String> parents = new HashMap<>();
         Queue<String> currentQueue = new LinkedList<>();
         Queue<String> nextQueue;
+        int step = 1;
         boolean pathFound = false;
 
         currentQueue.add(from);
 
         while (!pathFound && !currentQueue.isEmpty()) {
+            logStep(currentQueue, step);
             nextQueue = new LinkedList<>();
 
             while (!pathFound && !currentQueue.isEmpty()) {
                 String currentNode = currentQueue.poll();
+                logCurrentNode(step, currentNode);
                 Set<String> connectedLinks = source.getLinks(currentNode);
 
                 if (connectedLinks == null) {
@@ -45,6 +52,7 @@ public class SimplePathFinder implements PathFinder {
             }
 
             currentQueue = nextQueue;
+            step++;
         }
 
         if (pathFound) {
@@ -52,6 +60,14 @@ public class SimplePathFinder implements PathFinder {
         } else {
             return null;
         }
+    }
+
+    private void logCurrentNode(int step, String currentNode) {
+        logger.debug(String.format("Step %d, %s", step, currentNode));
+    }
+
+    private void logStep(Queue<String> currentQueue, int step) {
+        logger.info(String.format("Step %d, Queue size: %d", step, currentQueue.size()));
     }
 
     private ArrayList<String> getResult(Map<String, String> parents, String from, String to) {
