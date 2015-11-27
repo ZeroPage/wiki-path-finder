@@ -55,4 +55,21 @@ public class WikipediaApiTest {
 
         }
     }
+
+    @Test
+    public void testSuppressRedirect() throws Exception {
+        try {
+            api.getLinks(SAMPLE_REDIRECT_TITLE);
+            fail();
+        } catch (RedirectedException ignored) {
+
+        }
+
+        WikipediaApi suppressedApi = new WikipediaApi(WikipediaApi.Language.EN, true);
+        try {
+            suppressedApi.getLinks(SAMPLE_REDIRECT_TITLE);
+        } catch (RedirectedException ignored) {
+            fail();
+        }
+    }
 }
