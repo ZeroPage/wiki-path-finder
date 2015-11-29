@@ -1,3 +1,5 @@
+import log.Logger;
+import log.OutputStreamLogListener;
 import org.junit.Before;
 import org.junit.Test;
 

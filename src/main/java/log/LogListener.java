@@ -1,3 +1,5 @@
+package log;
+
 public interface LogListener {
     void debug(String message);
     void info(String message);

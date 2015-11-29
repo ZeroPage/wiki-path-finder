@@ -1,3 +1,5 @@
+package log;
+
 import java.util.ArrayList;
 
 public class Logger {
