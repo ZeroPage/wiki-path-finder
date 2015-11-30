@@ -41,4 +41,9 @@ public class ConcretePathTest {
         assertEquals(TEST_ARRAYLIST.size(), 2);
         assertEquals(iterator.next(), "Apple");
     }
+
+    @Test
+    public void testToString() {
+        assertEquals(concretePath.toString(),"[Apple][Fruit tree]");
+    }
 }
