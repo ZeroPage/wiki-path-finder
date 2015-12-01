@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class OutputStreamLogListener implements LogListener {
-    OutputStream outputStream;
+    private OutputStream outputStream;
 
     public OutputStreamLogListener(OutputStream outputStream) {
         this.outputStream = outputStream;
