@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class OutputStreamLogListener implements LogListener {
-    private OutputStream outputStream;
+    OutputStream outputStream;
 
     public OutputStreamLogListener(OutputStream outputStream) {
         this.outputStream = outputStream;
@@ -15,7 +15,6 @@ public class OutputStreamLogListener implements LogListener {
     @Override
     public void debug(String message) {
         message = "DEBUG: " + message + System.lineSeparator();
-        System.out.println("");
         try {
             outputStream.write(message.getBytes());
         } catch (IOException e) {
