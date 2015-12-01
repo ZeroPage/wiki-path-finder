@@ -18,6 +18,14 @@ public class ConcretePath implements Path{
     @Override
     public int length() {
         return pathArray.size();
+    }
 
+    @Override
+    public String toString() {
+        String s = new String();
+        for(String string : pathArray) {
+            s += "[" + string + "]";
+        }
+        return s;
     }
 }
