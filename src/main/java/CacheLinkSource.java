@@ -1,8 +1,7 @@
 import java.util.Set;
 
-public class CacheLinkSource implements LinkSourceDecorator {
+public class CacheLinkSource extends LinkSourceDecorator {
     CacheStorage cache;
-    LinkSource innerSource;
 
     public CacheLinkSource(LinkSource innerObject, CacheStorage cacheStorage) {
         this.innerSource = innerObject;

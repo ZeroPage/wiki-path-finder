@@ -1,3 +1,3 @@
-public interface LinkSourceDecorator extends LinkSource {
-
+public abstract class LinkSourceDecorator implements LinkSource {
+    protected LinkSource innerSource = null;
 }
