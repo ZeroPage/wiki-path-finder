@@ -22,6 +22,12 @@ public class MemCacheStorageTest {
     }
 
     @Test
+    public void testHasKey() throws Exception {
+        assertTrue(cache.hasKey("white"));
+        assertFalse(cache.hasKey("black"));
+    }
+
+    @Test
     public void testGetData() throws Exception {
         Set<String> test = cache.getData("white");
         assertThat(test, CoreMatchers.is(testSample));
