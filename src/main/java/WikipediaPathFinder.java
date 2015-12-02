@@ -24,7 +24,7 @@ public class WikipediaPathFinder implements PathFinder {
     }
 
     @Override
-    public Path getPath(String from, String to) throws Exception {
+    public RedirectablePath getPath(String from, String to) throws Exception {
         Map<String, String> frontParents = new HashMap<>();
         Map<String, String> backParents = new HashMap<>();
         Queue<String> frontNextQueue = new LinkedList<>();
