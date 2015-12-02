@@ -14,48 +14,31 @@ public class OutputStreamLogListener implements LogListener {
 
     @Override
     public void debug(String message) {
-        message = "DEBUG: " + message + System.lineSeparator();
-        System.out.println("");
-        try {
-            outputStream.write(message.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        print("DEBUG: " + message);
     }
 
     @Override
     public void info(String message) {
-        message = "INFO: " + message + System.lineSeparator();
-        try {
-            outputStream.write(message.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        print("INFO: " + message);
     }
 
     @Override
     public void warn(String message) {
-        message = "WARNING: " + message + System.lineSeparator();
-        try {
-            outputStream.write(message.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        print("WARNING: " + message);
     }
 
     @Override
     public void error(String message) {
-        message = "ERROR: " + message + System.lineSeparator();
-        try {
-            outputStream.write(message.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        print("ERROR: " + message);
     }
 
     @Override
     public void fatal(String message) {
-        message = "FATAL: " + message + System.lineSeparator();
+        print("FATAL: " + message);
+    }
+
+    private void print(String message) {
+        message = message + System.lineSeparator();
         try {
             outputStream.write(message.getBytes());
         } catch (IOException e) {
