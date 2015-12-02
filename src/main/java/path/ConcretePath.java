@@ -1,18 +1,18 @@
 package path;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ConcretePath implements Path{
-    private ArrayList<String> pathArray;
+    private List<String> pathArray;
 
-    public ConcretePath(ArrayList<String> pathArray) {
+    public ConcretePath(List<String> pathArray) {
         this.pathArray = pathArray;
     }
 
     @Override
     public Iterator<String> getPathIterator() {
-        return new UnmodifiableIterator<String>(pathArray.iterator());
+        return new UnmodifiableIterator<>(pathArray.iterator());
     }
 
     @Override
