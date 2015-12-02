@@ -10,7 +10,8 @@ import static org.junit.Assert.*;
 public class CacheLinkSourceTest {
     LinkSource linkSource;
     CacheStorage testCache;
-    Set<String> testValue;
+    Set<String> testValue,testInnerValue;
+    MockLinkSource testInnerObject;
 
     @Before
     public void setUp() throws Exception {
@@ -22,13 +23,17 @@ public class CacheLinkSourceTest {
         testValue.add("koibito");
         memCache.setData("white", testValue);
 
+        testInnerObject = new MockLinkSource();
+        testInnerValue = testInnerObject.getLinks("0");
+
         testCache = memCache;
 
-        linkSource = new CacheLinkSource(testCache);
+        linkSource = new CacheLinkSource(testInnerObject,testCache);
     }
 
     @Test
     public void testGetLinks() throws Exception {
         assertThat(linkSource.getLinks("white"), CoreMatchers.is(testValue));
+        assertThat(linkSource.getLinks("0"), CoreMatchers.is(testInnerValue));
     }
 }
