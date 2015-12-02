@@ -3,19 +3,20 @@ package path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class RedirectablePath implements Path {
-    private ArrayList<RedirectableNode> redirectableNodeArray;
+    private List<RedirectableNode> redirectableNodeArray;
 
-    private ArrayList<String> pathArray;
-    private ArrayList<String> redirectablePathArray;
+    private List<String> pathArray;
+    private List<String> redirectablePathArray;
 
     public RedirectablePath(ArrayList<RedirectableNode> redirectableNodeArray) {
         this.redirectableNodeArray = redirectableNodeArray;
-        pathArray = new ArrayList<String>();
+        pathArray = new ArrayList<>();
         for(RedirectableNode node: redirectableNodeArray)
         {
             if(node.redirecting == false)
@@ -23,7 +24,7 @@ public class RedirectablePath implements Path {
                 pathArray.add(node.name);
             }
         }
-        redirectablePathArray = new ArrayList<String>();
+        redirectablePathArray = new ArrayList<>();
         for(RedirectableNode node: redirectableNodeArray)
         {
             redirectablePathArray.add(node.name);
@@ -50,7 +51,7 @@ public class RedirectablePath implements Path {
     @Override
     public Iterator<String> getPathIterator() {
 
-        return new UnmodifiableIterator<String>(pathArray.iterator());
+        return new UnmodifiableIterator<>(pathArray.iterator());
     }
 
     @Override
@@ -59,7 +60,7 @@ public class RedirectablePath implements Path {
     }
 
     public Iterator<String> getRedirectablePathIterator() {
-        return new UnmodifiableIterator<String>(redirectablePathArray.iterator());
+        return new UnmodifiableIterator<>(redirectablePathArray.iterator());
     }
 
     public int redirectableLength() {
