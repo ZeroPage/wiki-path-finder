@@ -45,23 +45,26 @@ public class WikipediaPathFinder implements PathFinder {
 
             Queue<String> nextQueue;
             Map<String, String> parents;
+            Map<String, String> targets;
             LinkSource source;
 
             if (step % 2 == 1) {
                 // search from front
                 nextQueue = frontNextQueue;
                 parents = frontParents;
+                targets = backParents;
                 source = linkSource;
             } else {
                 // search from back
                 nextQueue = backNextQueue;
                 parents = backParents;
+                targets = frontParents;
                 source = backlinkSource;
             }
 
             if (!nextQueue.isEmpty()) {
                 logStep(nextQueue, step);
-                nextQueue = search(nextQueue, parents, source);
+                nextQueue = search(nextQueue, parents, targets, source);
             } else {
                 // if both queue is empty, stop the searching
                 if (lastStepSkipped) {
@@ -114,10 +117,12 @@ public class WikipediaPathFinder implements PathFinder {
     }
 
     // get links from queue and add them to the parents map
-    private Queue<String> search(Queue<String> queue, Map<String, String> parents, LinkSource source) throws Exception {
+    private Queue<String> search(Queue<String> queue, Map<String, String> parents,
+                                 Map<String, String> targets, LinkSource source) throws Exception {
         Queue<String> nextQueue = new LinkedList<>();
+        boolean stopSearching = false;
 
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty() & !stopSearching) {
             String currentNode = queue.poll();
             logCurrentNode(currentNode);
             Set<String> connectedLinks = null;
@@ -144,6 +149,11 @@ public class WikipediaPathFinder implements PathFinder {
                 if (!parents.containsKey(connectedNode)) {
                     parents.put(connectedNode, currentNode);
                     nextQueue.add(connectedNode);
+                }
+
+                if (targets.containsKey(connectedNode)) {
+                    stopSearching = true;
+                    break;
                 }
             }
         }
