@@ -9,16 +9,16 @@ import java.io.IOException;
 import java.util.*;
 
 public class WikipediaPathFinder implements PathFinder {
-    private WikipediaLinkSource linkSource;
-    private WikipediaBacklinkSource backlinkSource;
+    private LinkSource linkSource;
+    private LinkSource backlinkSource;
     private WikipediaApi api;
 
     private Logger logger;
 
     public WikipediaPathFinder(WikipediaApi api) {
         this.api = api;
-        linkSource = new WikipediaLinkSource(api);
-        backlinkSource = new WikipediaBacklinkSource(api);
+        linkSource = new CacheLinkSource(new WikipediaLinkSource(api), new MemCacheStorage());
+        backlinkSource = new CacheLinkSource(new WikipediaBacklinkSource(api), new MemCacheStorage());
 
         logger = Logger.getInstance();
     }
