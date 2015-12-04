@@ -1,5 +1,4 @@
 import log.Logger;
-import path.Path;
 import path.RedirectableNode;
 import path.RedirectablePath;
 import wiki_api.RedirectedException;
@@ -37,7 +36,7 @@ public class WikipediaPathFinder implements PathFinder {
         backParents.put(to, null);
 
         int step = 0;
-        String result = null;
+        String stopover = null;
 
         while (!frontNextQueue.isEmpty() || !backNextQueue.isEmpty()) {
             step++;
@@ -72,30 +71,37 @@ public class WikipediaPathFinder implements PathFinder {
             }
 
             // front and back is connected by result
-            result = checkResult(frontParents, backParents);
+            stopover = getDuplicatedKey(frontParents, backParents);
 
-            if (result != null) {
+            if (stopover != null) {
                 break;
             }
         }
 
-        if (result == null) {
+        if (stopover == null) {
             return null;
         }
 
         // concat both results
-        ArrayList<String> frontResult = getResult(frontParents, from, result);
-        ArrayList<String> backResult = getResult(backParents, to, result);
-        backResult.remove(backResult.size() - 1); // remove duplicated result
-
-        Collections.reverse(backResult);
-        frontResult.addAll(backResult);
+        ArrayList<String> frontResult = concatPathList(getPathList(frontParents, from, stopover),
+                getPathList(backParents, to, stopover));
 
         return new RedirectablePath(toRedirectableList(frontResult));
     }
 
+    // concat two path lists. If frontResult is 'A-B-C' and backResult is 'D-E-C', result is 'A-B-C-E-D'
+    private ArrayList<String> concatPathList(ArrayList<String> frontResult, ArrayList<String> backResult) {
+        ArrayList<String> result = new ArrayList<>(frontResult);
+        List<String> tempList = backResult.subList(0, backResult.size() - 1);
+
+        Collections.reverse(tempList);
+        result.addAll(tempList);
+
+        return result;
+    }
+
     // return the key contained by both maps. If not found, return null
-    private String checkResult(Map<String, String> frontParents, Map<String, String> backParents) {
+    private String getDuplicatedKey(Map<String, String> frontParents, Map<String, String> backParents) {
         Set<String> copiedSet = new HashSet<>(frontParents.keySet());
         copiedSet.retainAll(backParents.keySet());
 
@@ -152,7 +158,7 @@ public class WikipediaPathFinder implements PathFinder {
     }
 
     // follow parents from 'to' until it reaches 'from'
-    private ArrayList<String> getResult(Map<String, String> parents, String from, String to) {
+    private ArrayList<String> getPathList(Map<String, String> parents, String from, String to) {
         ArrayList<String> path = new ArrayList<>();
 
         String current = to;
