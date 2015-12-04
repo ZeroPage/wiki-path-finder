@@ -38,9 +38,8 @@ public class WikipediaPathFinder implements PathFinder {
 
         int step = 0;
         String result = null;
-        boolean lastStepSkipped = false;
 
-        while (true) {
+        while (!frontNextQueue.isEmpty() || !backNextQueue.isEmpty()) {
             step++;
 
             Queue<String> nextQueue;
@@ -62,17 +61,8 @@ public class WikipediaPathFinder implements PathFinder {
                 source = backlinkSource;
             }
 
-            if (!nextQueue.isEmpty()) {
-                logStep(nextQueue, step);
-                nextQueue = search(nextQueue, parents, targets, source);
-            } else {
-                // if both queue is empty, stop the searching
-                if (lastStepSkipped) {
-                    break;
-                } else {
-                    lastStepSkipped = true;
-                }
-            }
+            logStep(nextQueue, step);
+            nextQueue = search(nextQueue, parents, targets, source);
 
             // update queue
             if (step % 2 == 1) {
