@@ -6,6 +6,8 @@ import wiki_api.WikipediaApi;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class WikipediaPathFinder implements PathFinder {
     private LinkSource linkSource;
@@ -24,16 +26,16 @@ public class WikipediaPathFinder implements PathFinder {
 
     @Override
     public RedirectablePath getPath(String from, String to) throws Exception {
-        Map<String, String> frontParents = new HashMap<>();
-        Map<String, String> backParents = new HashMap<>();
+        ConcurrentMap<String, String> frontParents = new ConcurrentHashMap<>();
+        ConcurrentMap<String, String> backParents = new ConcurrentHashMap<>();
         Queue<String> frontNextQueue = new LinkedList<>();
         Queue<String> backNextQueue = new LinkedList<>();
 
         frontNextQueue.add(from);
-        frontParents.put(from, null);
+        frontParents.put(from, "");
 
         backNextQueue.add(to);
-        backParents.put(to, null);
+        backParents.put(to, "");
 
         int step = 0;
         String stopover = null;
@@ -42,7 +44,7 @@ public class WikipediaPathFinder implements PathFinder {
             step++;
 
             Queue<String> nextQueue;
-            Map<String, String> parents;
+            ConcurrentMap<String, String> parents;
             Map<String, String> targets;
             LinkSource source;
 
@@ -61,7 +63,7 @@ public class WikipediaPathFinder implements PathFinder {
             }
 
             logStep(nextQueue, step);
-            nextQueue = search(nextQueue, parents, targets, source);
+            nextQueue = concurrentSearch(nextQueue, parents, targets, source);
 
             // update queue
             if (step % 2 == 1) {
@@ -89,6 +91,71 @@ public class WikipediaPathFinder implements PathFinder {
         return new RedirectablePath(toRedirectableList(frontResult));
     }
 
+    private Queue<String> concurrentSearch(Queue<String> queue, ConcurrentMap<String, String> parents,
+                                           Map<String, String> targets, LinkSource source) throws Exception {
+        int coreCount = Runtime.getRuntime().availableProcessors();
+        int queueSizePerThread = queue.size() / coreCount;
+
+        logCoreCount(coreCount);
+
+        SearchThread[] threads = new SearchThread[coreCount];
+
+        for (int i = 0; i < coreCount; i++) {
+            Queue<String> subQueue;
+
+            if (i != coreCount - 1) {
+                subQueue = new LinkedList<>();
+                for (int j = 0; j < queueSizePerThread; j++) {
+                    subQueue.add(queue.poll());
+                }
+
+            } else {
+                subQueue = queue;
+            }
+
+            threads[i] = new SearchThread(subQueue, parents, targets, source);
+            threads[i].start();
+        }
+
+        return joinSearchThreads(threads);
+    }
+
+    private Queue<String> joinSearchThreads(SearchThread[] threads) throws Exception {
+        while (!isAllFinished(threads)) {
+            for (SearchThread thread : threads) {
+                if (thread.getStatus() == ThreadStatus.FOUND || thread.getStatus() == ThreadStatus.ERROR) {
+                    for (SearchThread toInterrupt : threads) {
+                        toInterrupt.interrupt();
+                    }
+                }
+            }
+
+            Thread.sleep(100);
+        }
+
+        Queue<String> mergedQueue = new LinkedList<>();
+        for (SearchThread thread : threads) {
+            if (thread.getStatus() != ThreadStatus.NOT_FOUND) {
+                return null;
+            }
+
+            mergedQueue.addAll(thread.getNextQueue());
+        }
+
+        return mergedQueue;
+    }
+
+    private boolean isAllFinished(SearchThread[] threads) {
+        for (SearchThread thread : threads) {
+            if (!thread.getStatus().isFinished()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     // concat two path lists. If frontResult is 'A-B-C' and backResult is 'D-E-C', result is 'A-B-C-E-D'
     private ArrayList<String> concatPathList(ArrayList<String> frontResult, ArrayList<String> backResult) {
         ArrayList<String> result = new ArrayList<>(frontResult);
@@ -110,51 +177,6 @@ public class WikipediaPathFinder implements PathFinder {
         }
 
         return copiedSet.iterator().next();
-    }
-
-    // get links from queue and add them to the parents map
-    private Queue<String> search(Queue<String> queue, Map<String, String> parents,
-                                 Map<String, String> targets, LinkSource source) throws Exception {
-        Queue<String> nextQueue = new LinkedList<>();
-        boolean stopSearching = false;
-
-        while (!queue.isEmpty() & !stopSearching) {
-            String currentNode = queue.poll();
-            logCurrentNode(currentNode);
-            Set<String> connectedLinks = null;
-
-            try {
-                connectedLinks = source.getLinks(currentNode);
-            } catch (RedirectedException ignored) {
-                // do special job to redirected link
-                String redirected = api.resolve(currentNode);
-
-                if (!parents.containsKey(redirected)) {
-                    parents.put(redirected, currentNode);
-                    nextQueue.add(redirected);
-                    continue;
-                }
-            }
-
-            if (connectedLinks == null) {
-                continue;
-            }
-
-            // add links to the parents map if they're not added yet.
-            for (String connectedNode : connectedLinks) {
-                if (!parents.containsKey(connectedNode)) {
-                    parents.put(connectedNode, currentNode);
-                    nextQueue.add(connectedNode);
-                }
-
-                if (targets.containsKey(connectedNode)) {
-                    stopSearching = true;
-                    break;
-                }
-            }
-        }
-
-        return nextQueue;
     }
 
     // follow parents from 'to' until it reaches 'from'
@@ -185,11 +207,112 @@ public class WikipediaPathFinder implements PathFinder {
         return result;
     }
 
+    private void logCoreCount(int coreCount) {
+        logger.info(String.format("running on %d cores", coreCount));
+    }
+
     private void logCurrentNode(String currentNode) {
         logger.debug(String.format("%s", currentNode));
     }
 
     private void logStep(Queue<String> queue, int step) {
         logger.info(String.format("Step %d, Queue size: %d", step, queue.size()));
+    }
+
+    // get links from queue and add them to the parents map. One time use only thread.
+    private class SearchThread extends Thread {
+        private Queue<String> queue;
+        private LinkSource source;
+        private ConcurrentMap<String, String> parents;
+        private Map<String, String> targets;
+
+        private Queue<String> nextQueue = null;
+        private ThreadStatus status = ThreadStatus.NOT_RUN;
+
+        public SearchThread(Queue<String> queue, ConcurrentMap<String, String> parents,
+                            Map<String, String> targets, LinkSource source) {
+            this.queue = queue;
+            this.parents = parents;
+            this.targets = targets;
+            this.source = source;
+        }
+
+        @Override
+        public void run() {
+            if (status != ThreadStatus.NOT_RUN) {
+                return;
+            }
+
+            status = ThreadStatus.RUNNING;
+            nextQueue = new LinkedList<>();
+            boolean targetFound = false;
+
+            while (!queue.isEmpty() & !targetFound) {
+                if (Thread.interrupted()) {
+                    status = ThreadStatus.ERROR;
+                    return;
+                }
+
+                String currentNode = queue.poll();
+                logCurrentNode(currentNode);
+                Set<String> connectedLinks = null;
+
+                try {
+                    try {
+                        connectedLinks = source.getLinks(currentNode);
+                    } catch (RedirectedException ignored) {
+                        // do special job to redirected link
+                        String redirected = api.resolve(currentNode);
+
+                        if (!parents.containsKey(redirected)) {
+                            parents.put(redirected, currentNode);
+                            nextQueue.add(redirected);
+                            continue;
+                        }
+                    }
+                } catch (Exception e) {
+                    status = ThreadStatus.ERROR;
+                    return;
+                }
+
+                if (connectedLinks == null) {
+                    continue;
+                }
+
+                // add links to the parents map if they're not added yet.
+                for (String connectedNode : connectedLinks) {
+                    if (!parents.containsKey(connectedNode)) {
+                        parents.put(connectedNode, currentNode);
+                        nextQueue.add(connectedNode);
+                    }
+
+                    if (targets.containsKey(connectedNode)) {
+                        targetFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (targetFound) {
+                status = ThreadStatus.FOUND;
+            } else {
+                status = ThreadStatus.NOT_FOUND;
+            }
+        }
+
+        public Queue<String> getNextQueue() {
+            return nextQueue;
+        }
+        public ThreadStatus getStatus() {
+            return status;
+        }
+    }
+
+    private enum ThreadStatus {
+        NOT_RUN, RUNNING, NOT_FOUND, FOUND, ERROR;
+
+        boolean isFinished() {
+            return this == NOT_FOUND || this == FOUND || this == ERROR;
+        }
     }
 }
