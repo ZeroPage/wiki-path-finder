@@ -1,10 +1,10 @@
 package org.zeropage;
 
-import java.util.Hashtable;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MemCacheStorage implements CacheStorage {
-    private Hashtable<String,Set<String>> cacheTable = new Hashtable<>(100,1);
+    private ConcurrentHashMap<String,Set<String>> cacheTable = new ConcurrentHashMap<>(100,1);
 
     @Override
     public boolean hasKey(String key) { return cacheTable.containsKey(key); }
