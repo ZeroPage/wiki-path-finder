@@ -1,3 +1,4 @@
+import org.zeropage.log.LogListener;
 import org.zeropage.log.Logger;
 import org.zeropage.log.OutputStreamLogListener;
 import org.junit.Before;
@@ -13,7 +14,10 @@ public class LoggerTest {
 
     @Test
     public void testPrintLogger() throws Exception {
-        logger.addListener(new OutputStreamLogListener(System.out));
+        OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(System.out);
+        outputStreamLogListener.setLevel(LogListener.Level.DEBUG);
+        logger.addListener(outputStreamLogListener);
+
         logger.error("Test error message");
     }
 
