@@ -2,10 +2,10 @@ package org.zeropage.path;
 
 import java.util.Iterator;
 
-public class UnmodifiableIterator<S> implements Iterator {
-    Iterator base;
+public class UnmodifiableIterator<String> implements Iterator<String> {
+    Iterator<String> base;
 
-    public UnmodifiableIterator(Iterator base) {
+    public UnmodifiableIterator(Iterator<String> base) {
         this.base = base;
     }
 
@@ -15,7 +15,7 @@ public class UnmodifiableIterator<S> implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public String next() {
         return base.next();
     }
 

@@ -8,9 +8,6 @@ import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by miri1 on 2015-11-25.
- */
 public class ConcretePathTest {
     private ConcretePath concretePath;
     private final ArrayList<String> TEST_ARRAYLIST = new ArrayList<>();
