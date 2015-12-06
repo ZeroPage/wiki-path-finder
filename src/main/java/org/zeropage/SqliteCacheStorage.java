@@ -30,7 +30,8 @@ public class SqliteCacheStorage implements CacheStorage {
     }
 
     @Override
-    public boolean hasKey(String key)
+    public synchronized boolean hasKey(String key)
+
     {
         String sql = "select Data from "+TABLE_NAME +" where Key = '"+key +"'";
         ResultSet rs = null;
@@ -48,7 +49,7 @@ public class SqliteCacheStorage implements CacheStorage {
     }
 
     @Override
-    public Set<String> getData(String key){
+    public synchronized Set<String> getData(String key){
 
         Set<String> resultSet = new HashSet<>();
         String sql = "select Data from "+TABLE_NAME +" where Key = '"+key +"'";
@@ -68,7 +69,7 @@ public class SqliteCacheStorage implements CacheStorage {
     }
 
     @Override
-    public void setData(String key, Set<String> data) {
+    public synchronized void setData(String key, Set<String> data) {
         try {
             connection.setAutoCommit(false);
             for (String d : data) {
