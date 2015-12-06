@@ -1,5 +1,5 @@
-import log.Logger;
-import log.OutputStreamLogListener;
+import org.zeropage.log.Logger;
+import org.zeropage.log.OutputStreamLogListener;
 import org.junit.Before;
 import org.junit.Test;
 

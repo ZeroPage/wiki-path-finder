@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
-import path.Path;
+import org.zeropage.MockLinkSource;
+import org.zeropage.SimplePathFinder;
+import org.zeropage.path.Path;
 
 import java.util.Iterator;
 

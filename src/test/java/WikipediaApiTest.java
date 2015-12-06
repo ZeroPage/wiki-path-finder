@@ -1,9 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
-import wiki_api.NotNormalizedException;
-import wiki_api.PageNotFoundException;
-import wiki_api.RedirectedException;
-import wiki_api.WikipediaApi;
+import org.zeropage.wiki_api.NotNormalizedException;
+import org.zeropage.wiki_api.PageNotFoundException;
+import org.zeropage.wiki_api.RedirectedException;
+import org.zeropage.wiki_api.WikipediaApi;
 
 import static org.junit.Assert.*;
 

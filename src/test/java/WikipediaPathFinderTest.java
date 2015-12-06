@@ -1,7 +1,10 @@
+import org.zeropage.wiki_path_find.WikipediaPathFinder;
+import org.zeropage.log.Logger;
+import org.zeropage.log.OutputStreamLogListener;
 import org.junit.Before;
 import org.junit.Test;
-import path.RedirectablePath;
-import wiki_api.WikipediaApi;
+import org.zeropage.path.RedirectablePath;
+import org.zeropage.wiki_api.WikipediaApi;
 
 import static org.junit.Assert.*;
 

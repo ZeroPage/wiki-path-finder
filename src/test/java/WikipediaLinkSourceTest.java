@@ -1,7 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
-import path.Path;
-import wiki_api.WikipediaApi;
+import org.zeropage.PathFinder;
+import org.zeropage.SimplePathFinder;
+import org.zeropage.wiki_path_find.WikipediaLinkSource;
+import org.zeropage.path.Path;
+import org.zeropage.wiki_api.WikipediaApi;
 
 import static org.junit.Assert.*;
 
