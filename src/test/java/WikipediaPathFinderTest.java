@@ -18,7 +18,7 @@ public class WikipediaPathFinderTest {
 
     @Test
     public void testGetPath() throws Exception {
-        RedirectablePath path = pathFinder.getPath("Apple", "Banana");
-        assertEquals(path.length(), 3);
+        RedirectablePath path = pathFinder.getPath("JUnit", "Banana");
+        assertEquals(path.length(), 5);
     }
 }
