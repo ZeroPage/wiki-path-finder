@@ -22,7 +22,7 @@ public class ConcretePath implements Path{
 
     @Override
     public String toString() {
-        String s = new String();
+        String s = "";
         for(String string : pathArray) {
             s += "[" + string + "]";
         }

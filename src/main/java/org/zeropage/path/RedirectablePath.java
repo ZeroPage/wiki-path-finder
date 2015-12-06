@@ -15,7 +15,7 @@ public class RedirectablePath implements Path {
         pathArray = new ArrayList<>();
         for(RedirectableNode node: redirectableNodeArray)
         {
-            if(node.redirecting == false)
+            if(!node.redirecting)
             {
                 pathArray.add(node.name);
             }
@@ -29,7 +29,7 @@ public class RedirectablePath implements Path {
 
     @Override
     public String toString() {
-        String s = new String();
+        String s = "";
         for(RedirectableNode node: redirectableNodeArray)
         {
             if(node.redirecting)
