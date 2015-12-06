@@ -5,34 +5,50 @@ import java.io.OutputStream;
 
 public class OutputStreamLogListener implements LogListener {
     private OutputStream outputStream;
+    private Level level;
 
     public OutputStreamLogListener(OutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     @Override
     public void debug(String message) {
-        print("DEBUG: " + message);
+        if(Level.DEBUG.getValue() <= level.getValue()) {
+            print("DEBUG: " + message);
+        }
+
     }
 
     @Override
     public void info(String message) {
-        print("INFO: " + message);
+        if(Level.INFO.getValue() <= level.getValue()) {
+            print("INFO: " + message);
+        }
     }
 
     @Override
     public void warn(String message) {
-        print("WARNING: " + message);
+        if(Level.WARN.getValue() <= level.getValue()) {
+            print("WARNING: " + message);
+        }
     }
 
     @Override
     public void error(String message) {
-        print("ERROR: " + message);
+        if(Level.ERROR.getValue() <= level.getValue()) {
+            print("ERROR: " + message);
+        }
     }
 
     @Override
     public void fatal(String message) {
-        print("FATAL: " + message);
+        if(Level.FATAL.getValue() <= level.getValue()) {
+            print("FATAL: " + message);
+        }
     }
 
     private void print(String message) {
