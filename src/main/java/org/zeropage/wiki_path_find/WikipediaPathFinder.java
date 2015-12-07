@@ -242,6 +242,14 @@ public class WikipediaPathFinder implements PathFinder {
         logger.info(String.format("Step %d, Queue size: %d", step, queue.size()));
     }
 
+    private void logException(Exception e) {
+        logger.error(e.toString());
+
+        for (StackTraceElement trace :e.getStackTrace()) {
+            logger.error(trace.toString());
+        }
+    }
+
     // get links from queue and add them to the parents map. One time use only thread.
     private class SearchThread extends Thread {
         private Queue<String> queue;
@@ -295,6 +303,8 @@ public class WikipediaPathFinder implements PathFinder {
                     }
                 } catch (Exception e) {
                     status = ThreadStatus.ERROR;
+                    logException(e);
+
                     return;
                 }
 
