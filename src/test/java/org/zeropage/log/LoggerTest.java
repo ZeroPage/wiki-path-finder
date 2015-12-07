@@ -1,3 +1,5 @@
+package org.zeropage.log;
+
 import org.zeropage.log.LogListener;
 import org.zeropage.log.Logger;
 import org.zeropage.log.OutputStreamLogListener;

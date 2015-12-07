@@ -1,3 +1,5 @@
+package org.zeropage.wiki_api;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.zeropage.wiki_api.NotNormalizedException;

@@ -1,3 +1,5 @@
+package org.zeropage.wiki_path_find;
+
 import org.zeropage.wiki_path_find.WikipediaPathFinder;
 import org.zeropage.log.Logger;
 import org.zeropage.log.OutputStreamLogListener;

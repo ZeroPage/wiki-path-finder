@@ -1,3 +1,5 @@
+package org.zeropage.wiki_path_find;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.zeropage.PathFinder;
