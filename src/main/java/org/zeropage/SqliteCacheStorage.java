@@ -9,8 +9,6 @@ public class SqliteCacheStorage implements CacheStorage {
     private static final String TABLE_NAME = "CachedStorage";
     private File file = null;
     private Connection connection = null;
-    private Statement statement = null;
-
 
     public SqliteCacheStorage(File file_) throws ClassNotFoundException, SQLException {
         this.file = file_;
@@ -25,11 +23,12 @@ public class SqliteCacheStorage implements CacheStorage {
             }
 
             connection = DriverManager.getConnection("jdbc:sqlite:"+this.file.getAbsolutePath());
-            statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             String sql = "CREATE TABLE " + TABLE_NAME +
                     "(Key TEXT NOT NULL, " +
                     "Data TEXT NOT NULL, Primary key(Key, Data))";
             statement.executeUpdate(sql);
+
         } catch (SQLException e) {
             if(e.getErrorCode() != 0){
                 throw(e);
@@ -37,15 +36,26 @@ public class SqliteCacheStorage implements CacheStorage {
         }
     }
 
+
+    public void finalize() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public synchronized boolean hasKey(String key)
-
     {
         String sql = "select Data from "+TABLE_NAME +" where Key = '"+key +"'";
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery(sql);
 
+            PreparedStatement selectStatement = connection.prepareStatement("select Data from "+TABLE_NAME +" where Key = ?");
+            selectStatement.setString(1, key);
+            rs = selectStatement.executeQuery();
             if(rs.next()) {
                 return true;
             }
@@ -60,11 +70,13 @@ public class SqliteCacheStorage implements CacheStorage {
     public synchronized Set<String> getData(String key){
 
         Set<String> resultSet = new HashSet<>();
-        String sql = "select Data from "+TABLE_NAME +" where Key = '"+key +"'";
-
+        String sql = "select Data from "+TABLE_NAME +" where Key = ?";
         ResultSet rs = null;
+
         try {
-            rs = statement.executeQuery(sql);
+            PreparedStatement selectStatement = connection.prepareStatement(sql);
+            selectStatement.setString(1, key);
+            rs = selectStatement.executeQuery();
 
             while(rs.next())
             {
@@ -81,8 +93,11 @@ public class SqliteCacheStorage implements CacheStorage {
         try {
             connection.setAutoCommit(false);
             for (String d : data) {
-                String sql = "insert into " + TABLE_NAME + " values ('" + key + "','" + d + "')";
-                statement.execute(sql);
+                String query = "insert into " + TABLE_NAME + " values (?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, key);
+                preparedStatement.setString(2, d);
+                preparedStatement.execute();
             }
             connection.commit();
         } catch (SQLException e) {
