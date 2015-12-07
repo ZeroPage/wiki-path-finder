@@ -23,7 +23,9 @@ public class CacheLinkSource extends LinkSourceDecorator {
         if(innerSource==null) {
             return null;
         } else {
-            return innerSource.getLinks(from);
+            Set<String> result = innerSource.getLinks(from);
+            this.cache.setData(from, result);
+            return result;
         }
 
     }
