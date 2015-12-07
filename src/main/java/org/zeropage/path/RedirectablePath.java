@@ -47,7 +47,7 @@ public class RedirectablePath implements Path {
     @Override
     public Iterator<String> getPathIterator() {
 
-        return new UnmodifiableIterator<>(pathArray.iterator());
+        return new UnmodifiableIterator(pathArray.iterator());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RedirectablePath implements Path {
     }
 
     public Iterator<String> getRedirectablePathIterator() {
-        return new UnmodifiableIterator<>(redirectablePathArray.iterator());
+        return new UnmodifiableIterator(redirectablePathArray.iterator());
     }
 
     public int redirectableLength() {

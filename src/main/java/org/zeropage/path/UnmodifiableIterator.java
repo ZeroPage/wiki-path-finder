@@ -2,7 +2,7 @@ package org.zeropage.path;
 
 import java.util.Iterator;
 
-public class UnmodifiableIterator<String> implements Iterator<String> {
+public class UnmodifiableIterator implements Iterator<String> {
     Iterator<String> base;
 
     public UnmodifiableIterator(Iterator<String> base) {

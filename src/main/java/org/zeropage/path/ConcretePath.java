@@ -12,7 +12,7 @@ public class ConcretePath implements Path{
 
     @Override
     public Iterator<String> getPathIterator() {
-        return new UnmodifiableIterator<>(pathArray.iterator());
+        return new UnmodifiableIterator(pathArray.iterator());
     }
 
     @Override
