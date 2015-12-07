@@ -20,6 +20,8 @@ public class MemCacheStorage implements CacheStorage {
 
     @Override
     public void setData(String key, Set<String> data) {
-        cacheTable.put(key,data);
+        if(key!=null && data!=null) {
+            cacheTable.put(key, data);
+        }
     }
 }
