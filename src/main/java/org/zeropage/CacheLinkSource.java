@@ -12,13 +12,19 @@ public class CacheLinkSource extends LinkSourceDecorator {
 
     @Override
     public Set<String> getLinks(String from) throws Exception {
-        if(this.cache.getData(from)==null) {
-            if(innerSource==null) {
-                return null;
-            } else {
-                return innerSource.getLinks(from);
+        if(this.cache.hasKey(from)) {
+            Set<String> result = this.cache.getData(from);
+            if(result != null)
+            {
+                return result;
             }
         }
-        return this.cache.getData(from);
+
+        if(innerSource==null) {
+            return null;
+        } else {
+            return innerSource.getLinks(from);
+        }
+
     }
 }
