@@ -24,93 +24,82 @@ public class LoggerTest {
     @Test
     public void testAddListener() throws Exception {
         OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(System.out);
-        outputStreamLogListener.setLevel(LogListener.Level.DEBUG);
         logger.addListener(outputStreamLogListener);
-        logger.debug(successMsg);
+        logger.info(successMsg);
     }
 
     @Test
     public void testRemoveListener() throws Exception {
         OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(System.out);
-        outputStreamLogListener.setLevel(LogListener.Level.DEBUG);
         logger.addListener(outputStreamLogListener);
-        logger.debug(successMsg);
+        logger.info(successMsg);
         logger.removeListener(outputStreamLogListener);
-        logger.debug(failMsg);
+        logger.info(failMsg);
     }
 
     @Test
     public void testDebug() throws Exception {
+        String prefix = "DEBUG: ";
         File file = new File("./test");
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(fileOutputStream, LogListener.Level.DEBUG);
-        logger.addListener(outputStreamLogListener);
+
+        addTestLogListner(file);
         logger.debug(successMsg);
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String output = bufferedReader.readLine();
-        Assert.assertEquals(output, "DEBUG: " + successMsg);
-        if(!file.delete()) {
-            throw new Exception();
-        }
+        Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
 
     @Test
     public void testInfo() throws Exception {
+        String prefix = "INFO: ";
         File file = new File("./test");
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(fileOutputStream, LogListener.Level.DEBUG);
-        logger.addListener(outputStreamLogListener);
+
+        addTestLogListner(file);
         logger.info(successMsg);
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String output = bufferedReader.readLine();
-        Assert.assertEquals(output, "INFO: " + successMsg);
-        if(!file.delete()) {
-            throw new Exception();
-        }
+        Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
 
     @Test
     public void testWarn() throws Exception {
+        String prefix = "WARNING: ";
         File file = new File("./test");
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(fileOutputStream, LogListener.Level.DEBUG);
-        logger.addListener(outputStreamLogListener);
+
+        addTestLogListner(file);
         logger.warn(successMsg);
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String output = bufferedReader.readLine();
-        Assert.assertEquals(output, "WARNING: " + successMsg);
-        if(!file.delete()) {
-            throw new Exception();
-        }
+        Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
 
     @Test
     public void testError() throws Exception {
+        String prefix = "ERROR: ";
         File file = new File("./test");
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(fileOutputStream, LogListener.Level.DEBUG);
-        logger.addListener(outputStreamLogListener);
+
+        addTestLogListner(file);
         logger.error(successMsg);
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String output = bufferedReader.readLine();
-        Assert.assertEquals(output, "ERROR: " + successMsg);
-        if(!file.delete()) {
-            throw new Exception();
-        }
+        Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
 
     @Test
     public void testFatal() throws Exception {
+        String prefix = "FATAL: ";
         File file = new File("./test");
+
+        addTestLogListner(file);
+        logger.fatal(successMsg);
+        Assert.assertEquals(getLogContents(file), prefix + successMsg);
+    }
+
+    private void addTestLogListner(File file) throws FileNotFoundException {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(fileOutputStream, LogListener.Level.DEBUG);
         logger.addListener(outputStreamLogListener);
-        logger.fatal(successMsg);
+    }
+
+    private String getLogContents(File file) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String output = bufferedReader.readLine();
-        Assert.assertEquals(output, "FATAL: " + successMsg);
         if(!file.delete()) {
             throw new Exception();
         }
+        return output;
     }
+
 }
