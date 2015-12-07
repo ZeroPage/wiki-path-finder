@@ -14,8 +14,7 @@ public class CacheLinkSource extends LinkSourceDecorator {
     public Set<String> getLinks(String from) throws Exception {
         if(this.cache.hasKey(from)) {
             Set<String> result = this.cache.getData(from);
-            if(result != null)
-            {
+            if(result != null) {
                 return result;
             }
         }
