@@ -5,12 +5,13 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class RedirectablePathTest {
     private RedirectablePath redirectablePath;
-    private final ArrayList<RedirectableNode> TEST_ARRAYLIST = new ArrayList<>();
+    private final List<RedirectableNode> TEST_ARRAYLIST = new ArrayList<>();
 
     @Before
     public void setUp() throws Exception {

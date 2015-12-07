@@ -10,7 +10,7 @@ public class RedirectablePath implements Path {
     private List<String> pathArray;
     private List<String> redirectablePathArray;
 
-    public RedirectablePath(ArrayList<RedirectableNode> redirectableNodeArray) {
+    public RedirectablePath(List<RedirectableNode> redirectableNodeArray) {
         this.redirectableNodeArray = redirectableNodeArray;
         pathArray = new ArrayList<>();
         for(RedirectableNode node: redirectableNodeArray)
