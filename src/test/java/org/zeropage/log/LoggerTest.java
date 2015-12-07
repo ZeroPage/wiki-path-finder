@@ -42,7 +42,7 @@ public class LoggerTest {
         String prefix = "DEBUG: ";
         File file = new File("./test");
 
-        addTestLogListner(file);
+        addTestLogListener(file);
         logger.debug(successMsg);
         Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
@@ -52,7 +52,7 @@ public class LoggerTest {
         String prefix = "INFO: ";
         File file = new File("./test");
 
-        addTestLogListner(file);
+        addTestLogListener(file);
         logger.info(successMsg);
         Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
@@ -62,7 +62,7 @@ public class LoggerTest {
         String prefix = "WARNING: ";
         File file = new File("./test");
 
-        addTestLogListner(file);
+        addTestLogListener(file);
         logger.warn(successMsg);
         Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
@@ -72,7 +72,7 @@ public class LoggerTest {
         String prefix = "ERROR: ";
         File file = new File("./test");
 
-        addTestLogListner(file);
+        addTestLogListener(file);
         logger.error(successMsg);
         Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
@@ -82,12 +82,12 @@ public class LoggerTest {
         String prefix = "FATAL: ";
         File file = new File("./test");
 
-        addTestLogListner(file);
+        addTestLogListener(file);
         logger.fatal(successMsg);
         Assert.assertEquals(getLogContents(file), prefix + successMsg);
     }
 
-    private void addTestLogListner(File file) throws FileNotFoundException {
+    private void addTestLogListener(File file) throws FileNotFoundException {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         OutputStreamLogListener outputStreamLogListener = new OutputStreamLogListener(fileOutputStream, LogListener.Level.DEBUG);
         logger.addListener(outputStreamLogListener);
@@ -96,7 +96,7 @@ public class LoggerTest {
     private String getLogContents(File file) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String output = bufferedReader.readLine();
-        if(!file.delete()) {
+        if (!file.delete()) {
             throw new Exception();
         }
         return output;
