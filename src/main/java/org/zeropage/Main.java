@@ -18,9 +18,9 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         System.out.print("From: ");//4
-        from = input.next();
+        from = input.nextLine();
         System.out.print("To: ");//3
-        to = input.next();
+        to = input.nextLine();
 
         try {
             pIterator = pFinder.getPath(from, to).getPathIterator();
@@ -30,9 +30,9 @@ public class Main {
                     System.out.print("->");
                 }
             }
+            System.out.println();
         } catch(Exception e) {
-            /* What can I do here?
-             * Help me, skywave! */
+            System.out.println("Something is wrong. Check if your input is appropriate.");
         }
     }
 }
