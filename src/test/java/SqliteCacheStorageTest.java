@@ -19,7 +19,7 @@ public class SqliteCacheStorageTest {
 
     @Before
     public void setUp() throws Exception {
-        cache = new SqliteCacheStorage(TEST_DB);
+        cache = new SqliteCacheStorage(new File(TEST_DB));
 
         TEST_DATA.add("dog");
         TEST_DATA.add("cat");

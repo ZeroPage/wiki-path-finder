@@ -1,22 +1,23 @@
 package org.zeropage;
 
+import java.io.File;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class SqliteCacheStorage implements CacheStorage {
     private static final String TABLE_NAME = "CachedStorage";
-    private String filename = null;
+    private File file = null;
     private Connection connection = null;
     private Statement statement = null;
 
 
-    public SqliteCacheStorage(String filename_) throws ClassNotFoundException, SQLException {
-        this.filename = filename_;
+    public SqliteCacheStorage(File file_) throws ClassNotFoundException, SQLException {
+        this.file = file_;
 
         Class.forName("org.sqlite.JDBC");
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:"+this.filename);
+            connection = DriverManager.getConnection("jdbc:sqlite:"+this.file.getAbsolutePath());
             statement = connection.createStatement();
             String sql = "CREATE TABLE " + TABLE_NAME +
                     "(Key TEXT NOT NULL, " +
