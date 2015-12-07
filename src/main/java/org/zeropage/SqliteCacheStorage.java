@@ -17,9 +17,11 @@ public class SqliteCacheStorage implements CacheStorage {
 
         Class.forName("org.sqlite.JDBC");
         try {
-            File directory = new File(this.file.getParent());
-            if(!directory.exists()) {
-                directory.mkdirs();
+            if(this.file.getParent() != null) {
+                File directory = new File(this.file.getParent());
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
             }
 
             connection = DriverManager.getConnection("jdbc:sqlite:"+this.file.getAbsolutePath());
