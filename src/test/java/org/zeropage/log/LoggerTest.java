@@ -7,9 +7,10 @@ import org.junit.Test;
 import java.io.*;
 
 public class LoggerTest {
-    final String successMsg = "success";
-    final String failMsg = "fail";
-    Logger logger;
+    private final String successMsg = "success";
+    private final String failMsg = "fail";
+    private Logger logger;
+    private File file;
 
     @Before
     public void setUp() throws Exception {
