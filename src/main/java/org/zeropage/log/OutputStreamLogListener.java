@@ -9,6 +9,12 @@ public class OutputStreamLogListener implements LogListener {
 
     public OutputStreamLogListener(OutputStream outputStream) {
         this.outputStream = outputStream;
+        this.level = Level.INFO;
+    }
+
+    public OutputStreamLogListener(OutputStream outputStream, Level level) {
+        this.outputStream = outputStream;
+        this.level = level;
     }
 
     public void setLevel(Level level) {
