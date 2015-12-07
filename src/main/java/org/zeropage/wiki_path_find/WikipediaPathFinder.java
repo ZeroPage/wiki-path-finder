@@ -245,7 +245,7 @@ public class WikipediaPathFinder implements PathFinder {
     private void logException(Exception e) {
         logger.error(e.toString());
 
-        for (StackTraceElement trace :e.getStackTrace()) {
+        for (StackTraceElement trace : e.getStackTrace()) {
             logger.error(trace.toString());
         }
     }
@@ -336,6 +336,7 @@ public class WikipediaPathFinder implements PathFinder {
         public Queue<String> getNextQueue() {
             return nextQueue;
         }
+
         public ThreadStatus getStatus() {
             return status;
         }

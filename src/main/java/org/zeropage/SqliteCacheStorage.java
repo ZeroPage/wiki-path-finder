@@ -15,14 +15,14 @@ public class SqliteCacheStorage implements CacheStorage {
 
         Class.forName("org.sqlite.JDBC");
         try {
-            if(this.file.getParent() != null) {
+            if (this.file.getParent() != null) {
                 File directory = new File(this.file.getParent());
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
             }
 
-            connection = DriverManager.getConnection("jdbc:sqlite:"+this.file.getAbsolutePath());
+            connection = DriverManager.getConnection("jdbc:sqlite:" + this.file.getAbsolutePath());
             Statement statement = connection.createStatement();
             String sql = "CREATE TABLE " + TABLE_NAME +
                     "(Key TEXT NOT NULL, " +
@@ -30,8 +30,8 @@ public class SqliteCacheStorage implements CacheStorage {
             statement.executeUpdate(sql);
 
         } catch (SQLException e) {
-            if(e.getErrorCode() != 0){
-                throw(e);
+            if (e.getErrorCode() != 0) {
+                throw (e);
             }
         }
     }
@@ -47,16 +47,15 @@ public class SqliteCacheStorage implements CacheStorage {
 
 
     @Override
-    public synchronized boolean hasKey(String key)
-    {
-        String sql = "select Data from "+TABLE_NAME +" where Key = '"+key +"'";
+    public synchronized boolean hasKey(String key) {
+        String sql = "select Data from " + TABLE_NAME + " where Key = '" + key + "'";
         ResultSet rs = null;
         try {
 
-            PreparedStatement selectStatement = connection.prepareStatement("select Data from "+TABLE_NAME +" where Key = ?");
+            PreparedStatement selectStatement = connection.prepareStatement("select Data from " + TABLE_NAME + " where Key = ?");
             selectStatement.setString(1, key);
             rs = selectStatement.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 return true;
             }
 
@@ -67,10 +66,10 @@ public class SqliteCacheStorage implements CacheStorage {
     }
 
     @Override
-    public synchronized Set<String> getData(String key){
+    public synchronized Set<String> getData(String key) {
 
         Set<String> resultSet = new HashSet<>();
-        String sql = "select Data from "+TABLE_NAME +" where Key = ?";
+        String sql = "select Data from " + TABLE_NAME + " where Key = ?";
         ResultSet rs = null;
 
         try {
@@ -78,8 +77,7 @@ public class SqliteCacheStorage implements CacheStorage {
             selectStatement.setString(1, key);
             rs = selectStatement.executeQuery();
 
-            while(rs.next())
-            {
+            while (rs.next()) {
                 resultSet.add(rs.getString("Data"));
             }
         } catch (SQLException e) {
@@ -90,7 +88,7 @@ public class SqliteCacheStorage implements CacheStorage {
 
     @Override
     public synchronized void setData(String key, Set<String> data) {
-        if(key == null || data == null) return;
+        if (key == null || data == null) return;
 
         try {
             connection.setAutoCommit(false);
@@ -103,13 +101,14 @@ public class SqliteCacheStorage implements CacheStorage {
             }
             connection.commit();
         } catch (SQLException e) {
-            if(e.getErrorCode() != 19) { // not already inserted.
+            if (e.getErrorCode() != 19) { // not already inserted.
                 e.printStackTrace();
             }
 
             try {
                 connection.rollback();
-            } catch (SQLException ignored) {}
+            } catch (SQLException ignored) {
+            }
         }
     }
 }

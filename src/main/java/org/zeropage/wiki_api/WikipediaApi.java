@@ -35,7 +35,7 @@ public class WikipediaApi {
     }
 
     public boolean isExist(String title) throws IOException {
-        return wiki.exists(new String[] {title})[0];
+        return wiki.exists(new String[]{title})[0];
     }
 
     public String resolve(String title) throws IOException {

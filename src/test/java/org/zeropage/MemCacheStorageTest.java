@@ -21,7 +21,7 @@ public class MemCacheStorageTest {
         testSample.add("dog");
         testSample.add("cat");
         testSample.add("koibito");
-        cache.setData("white",testSample);
+        cache.setData("white", testSample);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class MemCacheStorageTest {
         newValue.add("wine");
         newValue.add("chocolate");
 
-        cache.setData("white",newValue);
+        cache.setData("white", newValue);
 
         assertThat(cache.getData("white"), CoreMatchers.is(CoreMatchers.not(testSample)));
     }

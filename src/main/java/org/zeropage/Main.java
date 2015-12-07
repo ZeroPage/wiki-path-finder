@@ -24,14 +24,14 @@ public class Main {
 
         try {
             pIterator = pFinder.getPath(from, to).getPathIterator();
-            while(pIterator.hasNext()) {
+            while (pIterator.hasNext()) {
                 System.out.print(pIterator.next());
-                if(pIterator.hasNext()) {
+                if (pIterator.hasNext()) {
                     System.out.print("->");
                 }
             }
             System.out.println();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Something is wrong. Check if your input is appropriate.");
         }
     }

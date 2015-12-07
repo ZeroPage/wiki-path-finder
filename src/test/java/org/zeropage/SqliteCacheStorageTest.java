@@ -37,7 +37,7 @@ public class SqliteCacheStorageTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         File testfile = new File(TEST_DB);
         testfile.delete();
     }
@@ -46,7 +46,7 @@ public class SqliteCacheStorageTest {
     public void testHasKey() throws Exception {
         cache.setData(TEST_KEY, TEST_DATA);
         assertTrue(cache.hasKey(TEST_KEY));
-        assertFalse(cache.hasKey(TEST_KEY+TEST_KEY));
+        assertFalse(cache.hasKey(TEST_KEY + TEST_KEY));
     }
 
     @Test
@@ -77,5 +77,5 @@ public class SqliteCacheStorageTest {
         cache.setData(TEST_KEY2, TEST_DATA2);
         assertArrayEquals(cache.getData(TEST_KEY2).toArray(), TEST_DATA2.toArray());
     }
-    
+
 }

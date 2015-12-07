@@ -23,7 +23,7 @@ public class ConcretePathTest {
     public void testGetPathIterator() {
         Iterator<String> iterator = concretePath.getPathIterator();
         assertEquals(iterator.next(), "Apple");
-        assertEquals(iterator.next(),"Fruit tree");
+        assertEquals(iterator.next(), "Fruit tree");
     }
 
     @Test
@@ -41,6 +41,6 @@ public class ConcretePathTest {
 
     @Test
     public void testToString() {
-        assertEquals(concretePath.toString(),"[Apple][Fruit tree]");
+        assertEquals(concretePath.toString(), "[Apple][Fruit tree]");
     }
 }

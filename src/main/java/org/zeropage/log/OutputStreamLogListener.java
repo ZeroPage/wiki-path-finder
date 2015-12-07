@@ -23,7 +23,7 @@ public class OutputStreamLogListener implements LogListener {
 
     @Override
     public void debug(String message) {
-        if(Level.DEBUG.getValue() <= level.getValue()) {
+        if (Level.DEBUG.getValue() <= level.getValue()) {
             print("DEBUG: " + message);
         }
 
@@ -31,28 +31,28 @@ public class OutputStreamLogListener implements LogListener {
 
     @Override
     public void info(String message) {
-        if(Level.INFO.getValue() <= level.getValue()) {
+        if (Level.INFO.getValue() <= level.getValue()) {
             print("INFO: " + message);
         }
     }
 
     @Override
     public void warn(String message) {
-        if(Level.WARN.getValue() <= level.getValue()) {
+        if (Level.WARN.getValue() <= level.getValue()) {
             print("WARNING: " + message);
         }
     }
 
     @Override
     public void error(String message) {
-        if(Level.ERROR.getValue() <= level.getValue()) {
+        if (Level.ERROR.getValue() <= level.getValue()) {
             print("ERROR: " + message);
         }
     }
 
     @Override
     public void fatal(String message) {
-        if(Level.FATAL.getValue() <= level.getValue()) {
+        if (Level.FATAL.getValue() <= level.getValue()) {
             print("FATAL: " + message);
         }
     }

@@ -3,7 +3,7 @@ package org.zeropage.path;
 import java.util.Iterator;
 import java.util.List;
 
-public class ConcretePath implements Path{
+public class ConcretePath implements Path {
     private List<String> pathArray;
 
     public ConcretePath(List<String> pathArray) {
@@ -23,7 +23,7 @@ public class ConcretePath implements Path{
     @Override
     public String toString() {
         String s = "";
-        for(String string : pathArray) {
+        for (String string : pathArray) {
             s += "[" + string + "]";
         }
         return s;

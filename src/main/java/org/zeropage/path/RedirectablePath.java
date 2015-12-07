@@ -13,16 +13,13 @@ public class RedirectablePath implements Path {
     public RedirectablePath(List<RedirectableNode> redirectableNodeArray) {
         this.redirectableNodeArray = redirectableNodeArray;
         pathArray = new ArrayList<>();
-        for(RedirectableNode node: redirectableNodeArray)
-        {
-            if(!node.redirecting)
-            {
+        for (RedirectableNode node : redirectableNodeArray) {
+            if (!node.redirecting) {
                 pathArray.add(node.name);
             }
         }
         redirectablePathArray = new ArrayList<>();
-        for(RedirectableNode node: redirectableNodeArray)
-        {
+        for (RedirectableNode node : redirectableNodeArray) {
             redirectablePathArray.add(node.name);
         }
     }
@@ -30,13 +27,10 @@ public class RedirectablePath implements Path {
     @Override
     public String toString() {
         String s = "";
-        for(RedirectableNode node: redirectableNodeArray)
-        {
-            if(node.redirecting)
-            {
+        for (RedirectableNode node : redirectableNodeArray) {
+            if (node.redirecting) {
                 s += "[" + node.name + " 'redirected']";
-            }
-            else {
+            } else {
                 s += "[" + node.name + "]";
             }
         }

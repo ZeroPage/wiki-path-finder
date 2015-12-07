@@ -8,14 +8,19 @@ public interface LogListener {
         Level(int value) {
             this.value = value;
         }
+
         public int getValue() {
             return value;
         }
     }
 
     void debug(String message);
+
     void info(String message);
+
     void warn(String message);
+
     void error(String message);
+
     void fatal(String message);
 }

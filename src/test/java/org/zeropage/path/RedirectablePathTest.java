@@ -26,7 +26,7 @@ public class RedirectablePathTest {
     public void testGetPathIterator() throws Exception {
         Iterator<String> iterator = redirectablePath.getPathIterator();
         assertEquals(iterator.next(), "Apple");
-        assertEquals(iterator.next(),"tree");
+        assertEquals(iterator.next(), "tree");
     }
 
     @Test
@@ -38,7 +38,7 @@ public class RedirectablePathTest {
     public void testGetRedirectablePathIterator() throws Exception {
         Iterator<String> iterator = redirectablePath.getRedirectablePathIterator();
         assertEquals(iterator.next(), "Apple");
-        assertEquals(iterator.next(),"Fruit tree");
+        assertEquals(iterator.next(), "Fruit tree");
         assertEquals(iterator.next(), "tree");
     }
 

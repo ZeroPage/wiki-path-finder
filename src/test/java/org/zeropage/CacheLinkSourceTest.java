@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class CacheLinkSourceTest {
     LinkSource linkSource;
     CacheStorage testCache;
-    Set<String> testValue,testInnerValue;
+    Set<String> testValue, testInnerValue;
     MockLinkSource testInnerObject;
 
     @Before
@@ -31,7 +31,7 @@ public class CacheLinkSourceTest {
 
         testCache = memCache;
 
-        linkSource = new CacheLinkSource(testInnerObject,testCache);
+        linkSource = new CacheLinkSource(testInnerObject, testCache);
     }
 
     @Test
