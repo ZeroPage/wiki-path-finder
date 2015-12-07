@@ -90,6 +90,8 @@ public class SqliteCacheStorage implements CacheStorage {
 
     @Override
     public synchronized void setData(String key, Set<String> data) {
+        if(key == null || data == null) return;
+
         try {
             connection.setAutoCommit(false);
             for (String d : data) {

@@ -55,13 +55,25 @@ public class SqliteCacheStorageTest {
     }
 
     @Test
+    public void testSetNullData() throws Exception {
+        cache.setData(TEST_KEY, null);
+        cache.setData(null, TEST_DATA2);
+        cache.setData(null, null);
+    }
+
+    @Test
     public void testGetData() throws Exception {
         cache.setData(TEST_KEY, TEST_DATA);
         assertArrayEquals(cache.getData(TEST_KEY).toArray(), TEST_DATA.toArray());
     }
 
     @Test
-    public void testGetData2() throws Exception {
+    public void testGetDataByNullKey() throws Exception {
+        cache.getData(null).toArray();
+    }
+
+    @Test
+    public void testGetSpecialCharacterData() throws Exception {
         cache.setData(TEST_KEY2, TEST_DATA2);
         assertArrayEquals(cache.getData(TEST_KEY2).toArray(), TEST_DATA2.toArray());
     }
