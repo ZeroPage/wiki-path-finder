@@ -1,31 +1,48 @@
 package org.zeropage.wiki_path_find;
 
-import org.zeropage.CacheLinkSource;
-import org.zeropage.LinkSource;
-import org.zeropage.MemCacheStorage;
-import org.zeropage.PathFinder;
+import org.zeropage.*;
 import org.zeropage.log.Logger;
 import org.zeropage.path.RedirectableNode;
 import org.zeropage.path.RedirectablePath;
 import org.zeropage.wiki_api.RedirectedException;
 import org.zeropage.wiki_api.WikipediaApi;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class WikipediaPathFinder implements PathFinder {
+    public static final String FRONTLINK_CACHE_NAME = "front.db";
+    public static final String BACKLINK_CACHE_NAME = "back.db";
+
     private LinkSource linkSource;
     private LinkSource backlinkSource;
     private WikipediaApi api;
 
     private Logger logger;
 
-    public WikipediaPathFinder(WikipediaApi api) {
+    public WikipediaPathFinder(WikipediaApi api) throws SQLException, ClassNotFoundException {
+        this(api, null);
+    }
+
+    public WikipediaPathFinder(WikipediaApi api, File cacheDir) throws SQLException, ClassNotFoundException {
         this.api = api;
-        linkSource = new CacheLinkSource(new WikipediaLinkSource(api), new MemCacheStorage());
-        backlinkSource = new CacheLinkSource(new WikipediaBacklinkSource(api), new MemCacheStorage());
+        linkSource = new WikipediaLinkSource(api);
+        backlinkSource = new WikipediaBacklinkSource(api);
+
+        if (cacheDir != null) {
+            SqliteCacheStorage sqlite = new SqliteCacheStorage(new File(cacheDir, FRONTLINK_CACHE_NAME));
+            linkSource = new CacheLinkSource(linkSource, sqlite);
+
+            sqlite = new SqliteCacheStorage(new File(cacheDir, BACKLINK_CACHE_NAME));
+            backlinkSource = new CacheLinkSource(backlinkSource, sqlite);
+        }
+
+        linkSource = new CacheLinkSource(linkSource, new MemCacheStorage());
+        backlinkSource = new CacheLinkSource(backlinkSource, new MemCacheStorage());
 
         logger = Logger.getInstance();
     }
