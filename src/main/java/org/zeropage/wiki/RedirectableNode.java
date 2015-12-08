@@ -1,5 +1,8 @@
 package org.zeropage.wiki;
 
+/**
+ * Class for graph node including redirection flag.
+ */
 public class RedirectableNode {
     public RedirectableNode(boolean redirecting_, String name_) {
         this.redirecting = redirecting_;
