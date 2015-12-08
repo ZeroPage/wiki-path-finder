@@ -5,24 +5,36 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * <P> Implementation of SqliteCacheStorage. Key-Value pairs are stored in storage. </P>
+ * <P> SqliteCacheStorage used by CacheLinkSource </P>
+ *
+ * @see CacheLinkSource
+ */
 public class SqliteCacheStorage implements CacheStorage {
     private static final String TABLE_NAME = "CachedStorage";
-    private File file = null;
     private Connection connection = null;
 
-    public SqliteCacheStorage(File file_) throws ClassNotFoundException, SQLException {
-        this.file = file_;
+
+    /**
+     *
+     * @param file file path stored db
+     * @throws ClassNotFoundException if No driver of SQLite
+     * @throws SQLException if SQL Query raise errors.
+     */
+    public SqliteCacheStorage(File file) throws ClassNotFoundException, SQLException {
+
 
         Class.forName("org.sqlite.JDBC");
         try {
-            if (this.file.getParent() != null) {
-                File directory = new File(this.file.getParent());
+            if (file.getParent() != null) {
+                File directory = new File(file.getParent());
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
             }
 
-            connection = DriverManager.getConnection("jdbc:sqlite:" + this.file.getAbsolutePath());
+            connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
             Statement statement = connection.createStatement();
             String sql = "CREATE TABLE " + TABLE_NAME +
                     "(Key TEXT NOT NULL, " +
@@ -37,7 +49,8 @@ public class SqliteCacheStorage implements CacheStorage {
     }
 
 
-    public void finalize() {
+    public void finalize() throws Throwable {
+        super.finalize();
         try {
             connection.close();
         } catch (SQLException e) {
@@ -46,13 +59,18 @@ public class SqliteCacheStorage implements CacheStorage {
     }
 
 
+    /**
+     * Check whether storage has key
+     * @param key signature of your data.
+     * @return true if it has key. if not, return false.
+     */
     @Override
     public synchronized boolean hasKey(String key) {
-        String sql = "select Data from " + TABLE_NAME + " where Key = '" + key + "'";
-        ResultSet rs = null;
+        String sql = "select Data from " + TABLE_NAME + " where Key = ?";
+        ResultSet rs;
         try {
 
-            PreparedStatement selectStatement = connection.prepareStatement("select Data from " + TABLE_NAME + " where Key = ?");
+            PreparedStatement selectStatement = connection.prepareStatement(sql);
             selectStatement.setString(1, key);
             rs = selectStatement.executeQuery();
             if (rs.next()) {
@@ -65,12 +83,17 @@ public class SqliteCacheStorage implements CacheStorage {
         return false;
     }
 
+    /**
+     * Get data of the key.
+     * @param key signature of your data.
+     * @return Set of strings for the key. if no data of key, return null or empty set.
+     */
     @Override
     public synchronized Set<String> getData(String key) {
 
         Set<String> resultSet = new HashSet<>();
         String sql = "select Data from " + TABLE_NAME + " where Key = ?";
-        ResultSet rs = null;
+        ResultSet rs;
 
         try {
             PreparedStatement selectStatement = connection.prepareStatement(sql);
@@ -86,6 +109,11 @@ public class SqliteCacheStorage implements CacheStorage {
         return resultSet;
     }
 
+    /**
+     * Set data of a key.
+     * @param key signature of your data.
+     * @param data Set of strings to be stored.
+     */
     @Override
     public synchronized void setData(String key, Set<String> data) {
         if (key == null || data == null) return;
