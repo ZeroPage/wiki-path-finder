@@ -1,8 +1,9 @@
-package org.zeropage;
+package org.zeropage.cache;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.zeropage.LinkSource;
 import org.zeropage.basic.MockLinkSource;
 import org.zeropage.cache.CacheLinkSource;
 import org.zeropage.cache.CacheStorage;

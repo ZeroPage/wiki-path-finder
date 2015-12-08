@@ -1,4 +1,4 @@
-package org.zeropage;
+package org.zeropage.basic;
 
 import org.junit.Before;
 import org.junit.Test;

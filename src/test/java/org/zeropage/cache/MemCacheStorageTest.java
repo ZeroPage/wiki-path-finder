@@ -1,4 +1,4 @@
-package org.zeropage;
+package org.zeropage.cache;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;

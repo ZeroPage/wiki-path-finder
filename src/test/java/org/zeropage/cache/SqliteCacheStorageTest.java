@@ -1,4 +1,4 @@
-package org.zeropage;
+package org.zeropage.cache;
 
 import org.junit.After;
 import org.junit.Before;
