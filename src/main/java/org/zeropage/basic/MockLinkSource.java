@@ -1,4 +1,6 @@
-package org.zeropage;
+package org.zeropage.basic;
+
+import org.zeropage.LinkSource;
 
 import java.util.*;
 

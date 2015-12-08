@@ -1,4 +1,4 @@
-package org.zeropage;
+package org.zeropage.cache;
 
 import java.io.File;
 import java.sql.*;

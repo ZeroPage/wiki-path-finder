@@ -3,7 +3,7 @@ package org.zeropage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.zeropage.SqliteCacheStorage;
+import org.zeropage.cache.SqliteCacheStorage;
 
 import java.io.File;
 import java.util.HashSet;

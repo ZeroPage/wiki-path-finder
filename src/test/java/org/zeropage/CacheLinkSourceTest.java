@@ -3,7 +3,10 @@ package org.zeropage;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.zeropage.*;
+import org.zeropage.basic.MockLinkSource;
+import org.zeropage.cache.CacheLinkSource;
+import org.zeropage.cache.CacheStorage;
+import org.zeropage.cache.MemCacheStorage;
 
 import java.util.HashSet;
 import java.util.Set;

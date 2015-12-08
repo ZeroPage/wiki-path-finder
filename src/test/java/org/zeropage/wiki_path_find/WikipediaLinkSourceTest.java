@@ -3,8 +3,7 @@ package org.zeropage.wiki_path_find;
 import org.junit.Before;
 import org.junit.Test;
 import org.zeropage.PathFinder;
-import org.zeropage.SimplePathFinder;
-import org.zeropage.wiki_path_find.WikipediaLinkSource;
+import org.zeropage.basic.SimplePathFinder;
 import org.zeropage.path.Path;
 import org.zeropage.wiki_api.WikipediaApi;
 

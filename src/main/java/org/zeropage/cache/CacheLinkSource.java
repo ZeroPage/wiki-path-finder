@@ -1,4 +1,7 @@
-package org.zeropage;
+package org.zeropage.cache;
+
+import org.zeropage.LinkSource;
+import org.zeropage.LinkSourceDecorator;
 
 import java.util.Set;
 

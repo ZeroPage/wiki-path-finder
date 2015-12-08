@@ -1,10 +1,12 @@
 package org.zeropage.wiki_path_find;
 
 import org.zeropage.*;
+import org.zeropage.cache.CacheLinkSource;
+import org.zeropage.cache.MemCacheStorage;
+import org.zeropage.cache.SqliteCacheStorage;
 import org.zeropage.log.Logger;
 import org.zeropage.path.RedirectableNode;
 import org.zeropage.path.RedirectablePath;
-import org.zeropage.wiki_api.PageNotFoundException;
 import org.zeropage.wiki_api.RedirectedException;
 import org.zeropage.wiki_api.WikipediaApi;
 import org.zeropage.wiki_api.WikipediaApiException;

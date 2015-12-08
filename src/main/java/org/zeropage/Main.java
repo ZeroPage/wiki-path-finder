@@ -1,5 +1,7 @@
 package org.zeropage;
 
+import org.zeropage.basic.MockLinkSource;
+import org.zeropage.basic.SimplePathFinder;
 import org.zeropage.log.LogListener;
 import org.zeropage.log.Logger;
 import org.zeropage.log.OutputStreamLogListener;

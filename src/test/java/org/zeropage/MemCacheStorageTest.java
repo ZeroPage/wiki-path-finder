@@ -3,7 +3,7 @@ package org.zeropage;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.zeropage.MemCacheStorage;
+import org.zeropage.cache.MemCacheStorage;
 
 import java.util.HashSet;
 import java.util.Set;
