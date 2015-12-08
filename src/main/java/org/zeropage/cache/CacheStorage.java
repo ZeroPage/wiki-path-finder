@@ -2,6 +2,9 @@ package org.zeropage.cache;
 
 import java.util.Set;
 
+/**
+ * Interface for general cacheStorage
+ */
 public interface CacheStorage {
     boolean hasKey(String key);
 
