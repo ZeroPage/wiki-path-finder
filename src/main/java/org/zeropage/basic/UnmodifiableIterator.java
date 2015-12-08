@@ -14,6 +14,7 @@ public class UnmodifiableIterator implements Iterator<String> {
 
     /**
      * Class constructor get base iterator.
+     * @param base basic iterator, remove works.
      */
     public UnmodifiableIterator(Iterator<String> base) {
         this.base = base;

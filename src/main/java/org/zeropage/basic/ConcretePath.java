@@ -17,6 +17,7 @@ public class ConcretePath implements Path {
 
     /**
      * Class constructor get list of path.
+     * @param pathArray list of string, has path info.
      */
     public ConcretePath(List<String> pathArray) {
         this.pathArray = pathArray;
