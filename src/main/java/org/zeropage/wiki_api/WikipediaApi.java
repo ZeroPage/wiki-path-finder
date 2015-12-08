@@ -57,7 +57,7 @@ public class WikipediaApi {
             String redirected = resolve(title);
 
             if (redirected != null) {
-                throw new RedirectedException();
+                throw new RedirectedException(title, redirected);
             }
         }
 
