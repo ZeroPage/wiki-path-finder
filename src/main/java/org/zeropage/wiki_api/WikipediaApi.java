@@ -50,7 +50,7 @@ public class WikipediaApi {
         String normalized = normalize(title);
 
         if (!normalized.equals(title)) {
-            throw new NotNormalizedException();
+            throw new NotNormalizedException(title, normalized);
         }
 
         if (!suppressRedirected) {
@@ -62,7 +62,7 @@ public class WikipediaApi {
         }
 
         if (!isExist(title)) {
-            throw new PageNotFoundException();
+            throw new PageNotFoundException(title);
         }
     }
 
