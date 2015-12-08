@@ -14,19 +14,26 @@ import java.util.Scanner;
 
 public class Main {
     public static final String CACHE_ROOT = "cache/";
-    public static final File EN_CACHE_ROOT = new File(CACHE_ROOT, "en");
-    public static final File KO_CACHE_ROOT = new File(CACHE_ROOT, "ko");
 
     public static void main(String[] args) throws Exception {
         NamedPathFinder[] pathFinders = {
                 new NamedPathFinder(
                         "WikipediaPathFinder (EN)",
-                        new WikipediaPathFinder(new WikipediaApi(WikipediaApi.Language.EN), EN_CACHE_ROOT)
+                        new WikipediaPathFinder(new WikipediaApi(WikipediaApi.Language.EN),
+                                                new File(CACHE_ROOT, WikipediaApi.Language.EN.toString()))
                 ),
 
                 new NamedPathFinder(
                         "WikipediaPathFinder (KO)",
-                        new WikipediaPathFinder(new WikipediaApi(WikipediaApi.Language.KO), KO_CACHE_ROOT)
+                        new WikipediaPathFinder(new WikipediaApi(WikipediaApi.Language.KO),
+                                                new File(CACHE_ROOT, WikipediaApi.Language.KO.toString()))
+                ),
+
+
+                new NamedPathFinder(
+                        "WikipediaPathFinder (JP)",
+                        new WikipediaPathFinder(new WikipediaApi(WikipediaApi.Language.JP),
+                                new File(CACHE_ROOT, WikipediaApi.Language.JP.toString()))
                 ),
 
                 new NamedPathFinder(
