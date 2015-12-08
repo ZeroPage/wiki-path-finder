@@ -47,4 +47,9 @@ public class RedirectablePathTest {
         assertEquals(redirectablePath.redirectableLength(), 3);
     }
 
+    @Test
+    public void testToString() {
+        assertEquals(redirectablePath.toString(), "[Apple][Fruit tree 'redirected'][tree]");
+    }
+
 }
