@@ -18,6 +18,11 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * Find a path between 2 pages with given Wikipedia API.
+ * Uses the optimized searching method and caching to improve performance.
+ * And also can handles redirection problems.
+ */
 public class WikipediaPathFinder implements PathFinder {
     public static final String FRONTLINK_CACHE_NAME = "front.db";
     public static final String BACKLINK_CACHE_NAME = "back.db";
@@ -28,10 +33,25 @@ public class WikipediaPathFinder implements PathFinder {
 
     private Logger logger;
 
+    /**
+     * Find a path between 2 pages with given API. Memory caching is enabled.
+     *
+     * @param api Wikipedia API to use.
+     * @throws SQLException           never thrown.
+     * @throws ClassNotFoundException never thrown.
+     */
     public WikipediaPathFinder(WikipediaApi api) throws SQLException, ClassNotFoundException {
         this(api, null);
     }
 
+    /**
+     * Find a path between 2 pages with given API. Memory and file chching is enabled.
+     *
+     * @param api      Wikipedia API to use.
+     * @param cacheDir root directory for caching files.
+     * @throws SQLException           failed to open file cache.
+     * @throws ClassNotFoundException not able to use file cache.
+     */
     public WikipediaPathFinder(WikipediaApi api, File cacheDir) throws SQLException, ClassNotFoundException {
         this.api = api;
         linkSource = new WikipediaLinkSource(api);
@@ -51,6 +71,14 @@ public class WikipediaPathFinder implements PathFinder {
         logger = Logger.getInstance();
     }
 
+    /**
+     * Find a path between 2 pages. Parameters should be normalized and not redirected.
+     *
+     * @param from Starting page.
+     * @param to   Destination page.
+     * @return The path between 2 pages. If path is not found, null is returned.
+     * @throws Exception
+     */
     @Override
     public RedirectablePath getPath(String from, String to) throws Exception {
         ConcurrentMap<String, String> frontParents = new ConcurrentHashMap<>();
