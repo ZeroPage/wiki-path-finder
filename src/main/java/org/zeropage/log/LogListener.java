@@ -10,14 +10,21 @@ public interface LogListener {
      */
     enum Level {
         FATAL(1), ERROR(2), WARN(3), INFO(4), DEBUG(5);
-        private int value;
+        private int priority;
 
-        Level(int value) {
-            this.value = value;
+        /**
+         * Constructs a new level with its priority.
+         */
+
+        Level(int priority) {
+            this.priority = priority;
         }
 
-        public int getValue() {
-            return value;
+        /**
+         * Returns its priority
+         */
+        public int getPriority() {
+            return priority;
         }
     }
 
