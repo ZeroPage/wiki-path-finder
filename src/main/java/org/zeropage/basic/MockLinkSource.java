@@ -4,6 +4,9 @@ import org.zeropage.LinkSource;
 
 import java.util.*;
 
+/**
+ *Simple graph data source designed for funtionality test
+ */
 public class MockLinkSource implements LinkSource {
     private Map<String, String[]> mockData;
 
@@ -17,6 +20,11 @@ public class MockLinkSource implements LinkSource {
         mockData.put("4", new String[]{"0"});
     }
 
+    /**
+     *
+     * @param from Node to be searched from data source
+     * @return graph data related with node from
+     */
     @Override
     public Set<String> getLinks(String from) {
         if (mockData.containsKey(from)) {
