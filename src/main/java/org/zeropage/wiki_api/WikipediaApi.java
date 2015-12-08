@@ -67,7 +67,7 @@ public class WikipediaApi {
     }
 
     public enum Language {
-        KO("ko"), EN("en");
+        KO("ko"), EN("en"), JP("jp");
 
         private String languageCode;
 
