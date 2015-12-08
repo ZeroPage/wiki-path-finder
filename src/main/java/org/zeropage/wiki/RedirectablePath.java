@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Class of path presentation of redirectable nodes.
+ */
 public class RedirectablePath implements Path {
     private List<RedirectableNode> redirectableNodeArray;
 
@@ -27,6 +30,10 @@ public class RedirectablePath implements Path {
         }
     }
 
+    /**
+     * Get strings that describe inner nodes.
+     * @return decription of path.
+     */
     @Override
     public String toString() {
         String s = "";
@@ -41,21 +48,35 @@ public class RedirectablePath implements Path {
         return s;
     }
 
+    /**
+     * Get iterator of string of nodes.
+     * @return iterator of node names
+     */
     @Override
     public Iterator<String> getPathIterator() {
 
         return new UnmodifiableIterator(pathArray.iterator());
     }
 
+    /**
+     * @return length of path
+     */
     @Override
     public int length() {
         return pathArray.size();
     }
 
+    /**
+     * Get iterator of string of nodes including redirected.
+     * @return iterator of node names
+     */
     public Iterator<String> getRedirectablePathIterator() {
         return new UnmodifiableIterator(redirectablePathArray.iterator());
     }
 
+    /**
+     * @return length of path including redirected nodes
+     */
     public int redirectableLength() {
         return redirectablePathArray.size();
     }

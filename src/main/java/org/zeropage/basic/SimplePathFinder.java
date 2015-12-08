@@ -8,17 +8,33 @@ import org.zeropage.Path;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
+/**
+ * Simple implementation of PathFinder interface
+ * Designed with only essential functionalities
+ */
 public class SimplePathFinder implements PathFinder {
     private LinkSource source;
 
     private Logger logger;
 
+
+    /**
+     *
+     * @param source linksource where path data should be retrieved from
+     */
     public SimplePathFinder(@NotNull LinkSource source) {
         this.source = source;
 
         logger = Logger.getInstance();
     }
 
+    /**
+     *
+     * @param from Node where to start the searching
+     * @param to Target node where to end the searching
+     * @return Path describes the shortest path btw from - to
+     * @throws Exception When problem occurs while finding the path(ex.network problem)
+     */
     @Override
     public Path getPath(String from, String to) throws Exception {
         Map<String, String> parents = new HashMap<>();
