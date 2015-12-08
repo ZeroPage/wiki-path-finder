@@ -4,8 +4,10 @@ import org.zeropage.*;
 import org.zeropage.log.Logger;
 import org.zeropage.path.RedirectableNode;
 import org.zeropage.path.RedirectablePath;
+import org.zeropage.wiki_api.PageNotFoundException;
 import org.zeropage.wiki_api.RedirectedException;
 import org.zeropage.wiki_api.WikipediaApi;
+import org.zeropage.wiki_api.WikipediaApiException;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +55,15 @@ public class WikipediaPathFinder implements PathFinder {
         ConcurrentMap<String, String> backParents = new ConcurrentHashMap<>();
         Queue<String> frontNextQueue = new LinkedList<>();
         Queue<String> backNextQueue = new LinkedList<>();
+
+        try {
+            api.validate(from);
+            api.validate(to);
+        } catch (WikipediaApiException e) {
+            logException(e);
+
+            throw e;
+        }
 
         frontNextQueue.add(from);
         frontParents.put(from, "");
