@@ -34,8 +34,9 @@ public class Logger {
      * @param listener an listener to be added
      */
     public void addListener(LogListener listener) {
-        if (listener == null)
+        if (listener == null) {
             throw new NullPointerException("listener to be added is null");
+        }
         if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
