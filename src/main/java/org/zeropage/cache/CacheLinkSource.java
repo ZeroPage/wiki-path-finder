@@ -26,7 +26,7 @@ public class CacheLinkSource extends LinkSourceDecorator {
      * retrieving cached data mapped with given keyword parameter
      * @param from Keyword to be searched from cacheStorage
      * @return result of search from cacheStorage. If there's no result, pass the task to innerSource.
-     * @throws Exception
+     * @throws Exception when problem occurs so that the data can't retrieved(ex.network problem)
      */
     @Override
     public Set<String> getLinks(String from) throws Exception {
