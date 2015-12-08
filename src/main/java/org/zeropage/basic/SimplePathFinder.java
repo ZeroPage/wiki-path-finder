@@ -17,6 +17,11 @@ public class SimplePathFinder implements PathFinder {
 
     private Logger logger;
 
+
+    /**
+     *
+     * @param source linksource where path data should be retrieved from
+     */
     public SimplePathFinder(@NotNull LinkSource source) {
         this.source = source;
 
