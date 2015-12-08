@@ -8,10 +8,6 @@ import java.util.ArrayList;
 public class Logger {
     private volatile static Logger instance;
     private ArrayList<LogListener> listeners;
-
-    /**
-     * Private method to construct a logger
-     */
     private Logger() {
         listeners = new ArrayList<>();
     }
