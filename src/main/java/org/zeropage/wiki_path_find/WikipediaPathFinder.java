@@ -257,7 +257,7 @@ public class WikipediaPathFinder implements PathFinder {
         logger.error(e.toString());
 
         for (StackTraceElement trace : e.getStackTrace()) {
-            logger.error(trace.toString());
+            logger.debug(trace.toString());
         }
     }
 
