@@ -28,7 +28,7 @@ public class WikipediaPathFinderTest {
         RedirectablePath cachePath = cachePathFinder.getPath("JUnit", "Banana");
         assertEquals(cachePath.length(), 5);
 
-        RedirectablePath path = pathFinder.getPath("한국", "일본");
+        RedirectablePath path = pathFinder.getPath("A", "B");
         assertEquals(path.length(), 2);
     }
 }
