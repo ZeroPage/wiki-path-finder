@@ -311,6 +311,8 @@ public class WikipediaPathFinder implements PathFinder {
                             nextQueue.add(redirected);
                             continue;
                         }
+                    } catch (WikipediaApiException exception) {
+                        continue;
                     }
                 } catch (Exception e) {
                     status = ThreadStatus.ERROR;
