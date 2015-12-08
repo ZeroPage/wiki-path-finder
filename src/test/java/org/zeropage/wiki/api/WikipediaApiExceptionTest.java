@@ -1,4 +1,4 @@
-package org.zeropage.wiki_api;
+package org.zeropage.wiki.api;
 
 
 import org.junit.Test;

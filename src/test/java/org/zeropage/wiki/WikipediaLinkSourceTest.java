@@ -1,11 +1,11 @@
-package org.zeropage.wiki_path_find;
+package org.zeropage.wiki;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.zeropage.PathFinder;
 import org.zeropage.basic.SimplePathFinder;
-import org.zeropage.path.Path;
-import org.zeropage.wiki_api.WikipediaApi;
+import org.zeropage.Path;
+import org.zeropage.wiki.api.WikipediaApi;
 
 import static org.junit.Assert.*;
 

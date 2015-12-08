@@ -1,13 +1,8 @@
-package org.zeropage.wiki_path_find;
+package org.zeropage.wiki;
 
-import org.zeropage.log.LogListener;
-import org.zeropage.wiki_path_find.WikipediaPathFinder;
-import org.zeropage.log.Logger;
-import org.zeropage.log.OutputStreamLogListener;
 import org.junit.Before;
 import org.junit.Test;
-import org.zeropage.path.RedirectablePath;
-import org.zeropage.wiki_api.WikipediaApi;
+import org.zeropage.wiki.api.WikipediaApi;
 
 import java.io.File;
 

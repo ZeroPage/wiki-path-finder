@@ -1,8 +1,8 @@
-package org.zeropage.wiki_path_find;
+package org.zeropage.wiki;
 
 import org.zeropage.LinkSource;
-import org.zeropage.wiki_api.PageNotFoundException;
-import org.zeropage.wiki_api.WikipediaApi;
+import org.zeropage.wiki.api.PageNotFoundException;
+import org.zeropage.wiki.api.WikipediaApi;
 
 import java.io.IOException;
 import java.util.Arrays;

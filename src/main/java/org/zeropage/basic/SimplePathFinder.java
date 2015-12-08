@@ -3,8 +3,7 @@ package org.zeropage.basic;
 import org.zeropage.LinkSource;
 import org.zeropage.PathFinder;
 import org.zeropage.log.Logger;
-import org.zeropage.path.ConcretePath;
-import org.zeropage.path.Path;
+import org.zeropage.Path;
 
 import javax.validation.constraints.NotNull;
 import java.util.*;

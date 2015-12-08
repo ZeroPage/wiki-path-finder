@@ -2,10 +2,9 @@ package org.zeropage.basic;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.zeropage.basic.MockLinkSource;
-import org.zeropage.basic.SimplePathFinder;
-import org.zeropage.path.Path;
+import org.zeropage.Path;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;

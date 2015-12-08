@@ -5,9 +5,9 @@ import org.zeropage.basic.SimplePathFinder;
 import org.zeropage.log.LogListener;
 import org.zeropage.log.Logger;
 import org.zeropage.log.OutputStreamLogListener;
-import org.zeropage.wiki_api.WikipediaApi;
-import org.zeropage.wiki_path_find.WikipediaLinkSource;
-import org.zeropage.wiki_path_find.WikipediaPathFinder;
+import org.zeropage.wiki.api.WikipediaApi;
+import org.zeropage.wiki.WikipediaLinkSource;
+import org.zeropage.wiki.WikipediaPathFinder;
 
 import java.io.File;
 import java.util.InputMismatchException;

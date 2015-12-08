@@ -1,4 +1,4 @@
-package org.zeropage.path;
+package org.zeropage.wiki;
 
 public class RedirectableNode {
     public RedirectableNode(boolean redirecting_, String name_) {

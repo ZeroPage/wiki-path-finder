@@ -1,4 +1,6 @@
-package org.zeropage.path;
+package org.zeropage.basic;
+
+import org.zeropage.Path;
 
 import java.util.Iterator;
 import java.util.List;

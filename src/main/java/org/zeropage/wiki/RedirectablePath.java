@@ -1,4 +1,7 @@
-package org.zeropage.path;
+package org.zeropage.wiki;
+
+import org.zeropage.Path;
+import org.zeropage.basic.UnmodifiableIterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;

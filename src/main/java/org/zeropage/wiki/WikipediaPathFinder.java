@@ -1,15 +1,13 @@
-package org.zeropage.wiki_path_find;
+package org.zeropage.wiki;
 
 import org.zeropage.*;
 import org.zeropage.cache.CacheLinkSource;
 import org.zeropage.cache.MemCacheStorage;
 import org.zeropage.cache.SqliteCacheStorage;
 import org.zeropage.log.Logger;
-import org.zeropage.path.RedirectableNode;
-import org.zeropage.path.RedirectablePath;
-import org.zeropage.wiki_api.RedirectedException;
-import org.zeropage.wiki_api.WikipediaApi;
-import org.zeropage.wiki_api.WikipediaApiException;
+import org.zeropage.wiki.api.RedirectedException;
+import org.zeropage.wiki.api.WikipediaApi;
+import org.zeropage.wiki.api.WikipediaApiException;
 
 import java.io.File;
 import java.io.IOException;

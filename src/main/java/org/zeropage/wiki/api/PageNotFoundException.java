@@ -1,4 +1,4 @@
-package org.zeropage.wiki_api;
+package org.zeropage.wiki.api;
 
 /**
  * Exception caused by non-existing page.

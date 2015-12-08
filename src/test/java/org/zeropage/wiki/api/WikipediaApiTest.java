@@ -1,11 +1,7 @@
-package org.zeropage.wiki_api;
+package org.zeropage.wiki.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.zeropage.wiki_api.NotNormalizedException;
-import org.zeropage.wiki_api.PageNotFoundException;
-import org.zeropage.wiki_api.RedirectedException;
-import org.zeropage.wiki_api.WikipediaApi;
 
 import static org.junit.Assert.*;
 

@@ -1,7 +1,9 @@
-package org.zeropage.path;
+package org.zeropage.wiki;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.zeropage.wiki.RedirectableNode;
+import org.zeropage.wiki.RedirectablePath;
 
 import java.util.ArrayList;
 import java.util.Iterator;
