@@ -1,5 +1,8 @@
 package org.zeropage.wiki_api;
 
+/**
+ * Exception caused by page is redirected.
+ */
 public class RedirectedException extends WikipediaApiException {
     public RedirectedException() {
 

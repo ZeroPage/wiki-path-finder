@@ -1,5 +1,8 @@
 package org.zeropage.wiki_api;
 
+/**
+ * Exception caused by non-existing page.
+ */
 public class PageNotFoundException extends WikipediaApiException {
     public PageNotFoundException() {
 

@@ -1,5 +1,8 @@
 package org.zeropage.wiki_api;
 
+/**
+ * Exception caused by not normalized page title.
+ */
 public class NotNormalizedException extends WikipediaApiException {
     public NotNormalizedException() {
 
