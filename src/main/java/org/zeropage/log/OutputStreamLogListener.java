@@ -23,7 +23,7 @@ public class OutputStreamLogListener implements LogListener {
      * Constructs a logger with its <code>OutputStream</code> and level.
      *
      * @param outputStream outputStream to log
-     * @param level value for logging level
+     * @param level        value for logging level
      */
 
     public OutputStreamLogListener(OutputStream outputStream, Level level) {
@@ -37,7 +37,7 @@ public class OutputStreamLogListener implements LogListener {
      * @param level new value for logging level
      */
     public void setLevel(Level level) {
-        if(level == null ) {
+        if (level == null) {
             throw new NullPointerException("level to set is null");
         }
         this.level = level;
