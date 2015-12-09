@@ -4,6 +4,9 @@ import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * Write the given message from <code>Logger</code> to given <code>OutputStream</code>.
+ */
 public class OutputStreamLogListener implements LogListener {
     private OutputStream outputStream;
     @NotNull
