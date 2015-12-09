@@ -135,7 +135,14 @@ public class SqliteCacheStorage implements CacheStorage {
 
             try {
                 connection.rollback();
-            } catch (SQLException ignored) {
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

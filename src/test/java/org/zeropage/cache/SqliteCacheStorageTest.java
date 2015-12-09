@@ -23,7 +23,9 @@ public class SqliteCacheStorageTest {
 
     @Before
     public void setUp() throws Exception {
-        cache = new SqliteCacheStorage(new File(TEST_DB));
+        File testFile = new File(TEST_DB);
+        cache = new SqliteCacheStorage(testFile);
+        testFile.deleteOnExit();
 
         TEST_DATA.add("dog");
         TEST_DATA.add("cat");
@@ -36,11 +38,6 @@ public class SqliteCacheStorageTest {
 
     }
 
-    @After
-    public void tearDown() {
-        File testfile = new File(TEST_DB);
-        testfile.delete();
-    }
 
     @Test
     public void testHasKey() throws Exception {
