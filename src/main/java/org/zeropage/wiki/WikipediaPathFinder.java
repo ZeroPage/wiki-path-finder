@@ -75,7 +75,7 @@ public class WikipediaPathFinder implements PathFinder {
      * @param from Starting page.
      * @param to   Destination page.
      * @return The path between 2 pages. If path is not found, null is returned.
-     * @throws Exception
+     * @throws Exception unexpected exception happened
      */
     @Override
     public RedirectablePath getPath(String from, String to) throws Exception {

@@ -21,7 +21,9 @@ public interface LogListener {
         }
 
         /**
-         * Returns its priority
+         * Returns its priority. Lower priority is more important.
+         *
+         * @return priority priority of Level.
          */
         public int getPriority() {
             return priority;
