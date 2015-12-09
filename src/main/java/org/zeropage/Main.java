@@ -14,6 +14,10 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * Interact with user by standart output/input to give the path between two nodes with chosen PathFinder.
+ * This class has the main method.
+ */
 public class Main {
     public static final String CACHE_ROOT = "cache/";
 
