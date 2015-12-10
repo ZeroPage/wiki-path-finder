@@ -9,13 +9,16 @@ This project is also the result of term project for Design Pattern class, CAUCSE
 
 #Pre-requisites
 - Language: Java8
-- IDE: intellij ultimate 15
 - Build management: maven4
-- CI: travis-CI
 - External libraries
   - junit (4.12): Testing Library
   - mediawiki-japi (0.0.11): Wikipedia API Java Library
   - sqlite-jdbc (3.8.11.2): java-sqlite connectivity Library
+
+#Usage
+You can select target language(EN, KO, JP) to be searched in Wikipedia, then type in two document titles, each for "from" and "to" parameter.
+
+The program will look for shortest link path between two keywords, and show you the path starting from "from" parameter.
 
 #License
 - [MIT License](https://opensource.org/licenses/MIT)
